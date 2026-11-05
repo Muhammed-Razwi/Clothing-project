@@ -1,0 +1,530 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Profile | Blank. Store</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f5e5e5, #f8eeeb, #ead2d5);
+            font-family: 'DM Sans', sans-serif;
+            color: #392832;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #392832;
+            padding: 15px 5%;
+        }
+
+        .navbar-brand {
+            color: #e4b9c4;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 19px;
+            text-decoration: none;
+        }
+
+        .navbar-brand:hover {
+            color: white;
+        }
+
+        .back-link {
+            color: #fffaf7;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #e4b9c4;
+        }
+
+        /* PROFILE CONTAINER */
+
+        .profile-wrapper {
+            max-width: 850px;
+            margin: 55px auto;
+            padding: 0 15px;
+        }
+
+        .profile-card {
+            background: #fffdfb;
+            border: 1px solid #f0dfe3;
+            border-radius: 22px;
+            padding: 40px;
+            box-shadow: 0 15px 45px rgba(91, 43, 57, 0.10);
+        }
+
+        /* PROFILE IMAGE */
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .profile-image-wrapper {
+            position: relative;
+            width: 125px;
+            height: 125px;
+            margin: 0 auto 18px;
+        }
+
+        .profile-image {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #e4b9c4;
+            padding: 3px;
+            background: #f6e4e7;
+        }
+
+        .profile-placeholder {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f6e4e7;
+            color: #843e57;
+            font-size: 48px;
+            font-weight: 700;
+            border: 4px solid #e4b9c4;
+        }
+
+        .upload-icon {
+            position: absolute;
+            bottom: 3px;
+            right: 3px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #843e57;
+            color: white;
+            border: 3px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 17px;
+        }
+
+        .upload-icon:hover {
+            background: #572638;
+        }
+
+        .upload-text {
+            font-size: 12px;
+            color: #9a858d;
+            margin-top: 10px;
+        }
+
+        .profile-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: #713449;
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .profile-header p {
+            color: #9a858d;
+            font-size: 13px;
+        }
+
+        /* FORM */
+
+        .form-label {
+            color: #634653;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            min-height: 49px;
+            border: 1px solid #ead5db;
+            border-radius: 9px;
+            background: #fffdfb;
+            padding: 12px 15px;
+            font-size: 13px;
+        }
+
+        .form-control:focus {
+            border-color: #984b64;
+            box-shadow: 0 0 0 3px rgba(152, 75, 100, 0.10);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+        }
+
+        /* BUTTONS */
+
+        .btn-save {
+            width: 100%;
+            padding: 13px;
+            background: linear-gradient(135deg, #984b64, #713449);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+
+        .btn-save:hover {
+            background: #572638;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            width: 100%;
+            padding: 13px;
+            background: transparent;
+            border: 1px solid #e5cbd2;
+            color: #713449;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .btn-cancel:hover {
+            background: #f8e9ec;
+            color: #572638;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #9a858d;
+            font-size: 12px;
+        }
+
+        @media(max-width: 576px) {
+            .profile-wrapper {
+                margin: 30px auto;
+            }
+
+            .profile-card {
+                padding: 25px 20px;
+            }
+
+            .profile-header h2 {
+                font-size: 27px;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="{% url 'user_dashboard' %}">
+                BLANK. STORE
+            </a>
+
+            <a href="{% url 'user_dashboard' %}" class="back-link">
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- PROFILE FORM -->
+
+    <div class="container">
+
+        <div class="profile-wrapper">
+
+            <div class="profile-card">
+
+                <div class="profile-header">
+
+                    <h2>My Profile</h2>
+
+                    <p>Manage your personal information and account details.</p>
+
+                    <!-- PROFILE IMAGE -->
+
+                    <div class="profile-image-wrapper">
+
+                        {% if user_data.profile_image %}
+
+                            <img src="{{ user_data.profile_image.url }}"
+                                 alt="Profile Image"
+                                 class="profile-image"
+                                 id="profilePreview">
+
+                        {% else %}
+
+                            <div class="profile-placeholder" id="profilePlaceholder">
+                                {{ user_data.name|first|upper }}
+                            </div>
+
+                            <img src=""
+                                 alt="Profile Image Preview"
+                                 class="profile-image d-none"
+                                 id="profilePreview">
+
+                        {% endif %}
+
+                        <label for="profileImageInput" class="upload-icon"
+                               title="Change Profile Image">
+                            ✎
+                        </label>
+
+                    </div>
+
+                    <p class="upload-text">
+                        Click the edit icon to upload your profile photo
+                    </p>
+
+                </div>
+
+
+                <!-- DJANGO MESSAGES -->
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+
+                            {{ message }}
+
+                            <button type="button" class="btn-close"
+                                    data-bs-dismiss="alert"></button>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+                <!-- PROFILE UPDATE FORM -->
+
+                <form method="POST" enctype="multipart/form-data">
+
+                    {% csrf_token %}
+
+                    <!-- HIDDEN PROFILE IMAGE INPUT -->
+
+                    <input type="file"
+                           name="profile_image"
+                           id="profileImageInput"
+                           accept="image/*"
+                           class="d-none">
+
+
+                    <div class="row g-4">
+
+                        <!-- NAME -->
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">Full Name</label>
+
+                            <input type="text"
+                                   name="name"
+                                   class="form-control"
+                                   value="{{ user_data.name }}"
+                                   required>
+
+                        </div>
+
+
+                        <!-- USERNAME -->
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">Username</label>
+
+                            <input type="text"
+                                   name="username"
+                                   class="form-control"
+                                   value="{{ user_data.username }}"
+                                   required>
+
+                        </div>
+
+
+                        <!-- EMAIL -->
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">Email Address</label>
+
+                            <input type="email"
+                                   name="email"
+                                   class="form-control"
+                                   value="{{ user_data.email }}"
+                                   required>
+
+                        </div>
+
+
+                        <!-- PHONE -->
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">Phone Number</label>
+
+                            <input type="tel"
+                                   name="phone"
+                                   class="form-control"
+                                   value="{{ user_data.phone }}"
+                                   maxlength="15"
+                                   required>
+
+                        </div>
+
+
+                        <!-- ADDRESS -->
+
+                        <div class="col-12">
+
+                            <label class="form-label">Address</label>
+
+                            <textarea name="address"
+                                      class="form-control"
+                                      rows="3"
+                                      placeholder="Enter your address">{{ user_data.address|default:'' }}</textarea>
+
+                        </div>
+
+
+                        <!-- PINCODE -->
+
+                        <div class="col-md-6">
+
+                            <label class="form-label">Pincode</label>
+
+                            <input type="text"
+                                   name="pincode"
+                                   class="form-control"
+                                   value="{{ user_data.pincode|default:'' }}"
+                                   maxlength="10">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="row g-3 mt-4">
+
+                        <div class="col-md-6">
+
+                            <button type="submit" class="btn btn-save">
+                                Save Changes
+                            </button>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <a href="{% url 'user_dashboard' %}" class="btn-cancel d-block">
+                                Cancel
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        © 2026 Blank. Store. All Rights Reserved.
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- PROFILE IMAGE PREVIEW -->
+
+    <script>
+
+        const profileInput = document.getElementById("profileImageInput");
+        const profilePreview = document.getElementById("profilePreview");
+        const profilePlaceholder = document.getElementById("profilePlaceholder");
+
+        profileInput.addEventListener("change", function () {
+
+            const file = this.files[0];
+
+            if (file) {
+
+                if (!file.type.startsWith("image/")) {
+                    alert("Please select a valid image.");
+                    this.value = "";
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                reader.onload = function (event) {
+
+                    profilePreview.src = event.target.result;
+                    profilePreview.classList.remove("d-none");
+
+                    if (profilePlaceholder) {
+                        profilePlaceholder.classList.add("d-none");
+                    }
+
+                };
+
+                reader.readAsDataURL(file);
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>

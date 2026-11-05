@@ -1,0 +1,406 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ page_title }} | Clothing Store</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --dark: #303b32;
+            --green: #657966;
+            --green-dark: #4d6251;
+            --sage: #e4e9df;
+            --cream: #f7f6f0;
+            --white: #ffffff;
+            --text: #41483f;
+            --muted: #92968b;
+            --border: #e5e7dd;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--cream);
+            background-image:
+                radial-gradient(circle at 10% 10%, #e9ede3 0, transparent 35%),
+                radial-gradient(circle at 90% 90%, #e8e9dc 0, transparent 35%);
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: rgba(48, 59, 50, 0.97);
+            padding: 18px 0;
+            box-shadow: 0 5px 25px rgba(38, 48, 39, 0.08);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-family: 'Playfair Display', serif;
+            font-size: 25px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .navbar-label {
+            color: #cbd4c7;
+            font-size: 11px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+        }
+
+        /* MAIN SECTION */
+
+        .main-section {
+            min-height: calc(100vh - 75px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 55px 15px;
+        }
+
+        /* FORM CARD */
+
+        .category-card {
+            width: 100%;
+            max-width: 510px;
+            background: rgba(255, 255, 255, 0.94);
+            border: 1px solid rgba(101, 121, 102, 0.15);
+            border-radius: 24px;
+            padding: 46px;
+            box-shadow: 0 20px 60px rgba(48, 59, 50, 0.08);
+            animation: fadeIn 0.7s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FORM ICON */
+
+        .form-icon {
+            width: 58px;
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--sage);
+            color: var(--green-dark);
+            border-radius: 18px;
+            font-size: 27px;
+            margin-bottom: 25px;
+        }
+
+        /* HEADING */
+
+        .eyebrow {
+            color: var(--green);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .form-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .heading-line {
+            width: 48px;
+            height: 3px;
+            background: var(--green);
+            border-radius: 10px;
+            margin: 18px 0 22px;
+        }
+
+        .form-description {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        /* LABEL */
+
+        .form-label {
+            color: var(--dark);
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* INPUT */
+
+        .form-control {
+            height: 55px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 13px 17px;
+            font-size: 14px;
+            color: var(--text);
+            background: #fafbf8;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--green);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(101, 121, 102, 0.12);
+        }
+
+        .form-control::placeholder {
+            color: #b0b5aa;
+        }
+
+        .input-hint {
+            color: #a0a398;
+            font-size: 11px;
+        }
+
+        /* SUBMIT BUTTON */
+
+        .btn-submit {
+            height: 54px;
+            background: var(--dark);
+            color: white;
+            border: 1px solid var(--dark);
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--green);
+            border-color: var(--green);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(101, 121, 102, 0.2);
+        }
+
+        /* BACK BUTTON */
+
+        .btn-back {
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--green-dark);
+            background: white;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background: var(--sage);
+            border-color: var(--green);
+            color: var(--dark);
+        }
+
+        /* DJANGO MESSAGES */
+
+        .alert {
+            border: none;
+            border-radius: 12px;
+            font-size: 13px;
+            padding: 14px 16px;
+        }
+
+        /* FOOTER */
+
+        .form-footer {
+            text-align: center;
+            color: #a0a398;
+            font-size: 10px;
+            letter-spacing: 1px;
+            margin-top: 30px;
+            padding-top: 22px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* MOBILE RESPONSIVE */
+
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 21px;
+            }
+
+            .category-card {
+                padding: 30px 23px;
+                border-radius: 19px;
+            }
+
+            .form-heading {
+                font-size: 30px;
+            }
+
+            .main-section {
+                padding: 35px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+        <div class="container">
+
+            <a class="navbar-brand" href="{% url 'owner_dashboard' %}">
+                CLOTHING STORE.
+            </a>
+
+            <span class="navbar-label d-none d-sm-block">
+                Store Management
+            </span>
+
+        </div>
+    </nav>
+
+    <!-- MAIN FORM SECTION -->
+
+    <main class="main-section">
+
+        <div class="category-card">
+
+            <!-- ICON -->
+
+            <div class="form-icon">
+                ✳
+            </div>
+
+            <!-- FORM HEADING -->
+
+            <div class="eyebrow">Collection Management</div>
+
+            <h2 class="form-heading">
+                {{ page_title }}
+            </h2>
+
+            <div class="heading-line"></div>
+
+            <p class="form-description">
+                Create and organise your clothing collections.
+                Keep your store organised with carefully managed categories.
+            </p>
+
+            <!-- DJANGO MESSAGES -->
+
+            {% if messages %}
+                {% for message in messages %}
+
+                    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show"
+                         role="alert">
+
+                        {{ message }}
+
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert"
+                                aria-label="Close">
+                        </button>
+
+                    </div>
+
+                {% endfor %}
+            {% endif %}
+
+            <!-- CATEGORY FORM -->
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="mb-4">
+
+                    <label for="category_name" class="form-label">
+                        Category Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="category_name"
+                        name="category_name"
+                        class="form-control"
+                        placeholder="e.g. Oversized T-Shirts"
+                        value="{{ category_name }}"
+                        maxlength="100"
+                        autocomplete="off"
+                        required
+                    >
+
+                    <small class="input-hint d-block mt-2">
+                        Examples: T-Shirts, Hoodies, Shirts, Trousers
+                    </small>
+
+                </div>
+
+                <!-- SUBMIT BUTTON -->
+
+                <button type="submit" class="btn btn-submit w-100 mb-3">
+                    {{ button_text }}
+                </button>
+
+                <!-- BACK BUTTON -->
+
+                <a href="{% url 'owner_dashboard' %}" class="btn-back">
+                    ← &nbsp; Back to Dashboard
+                </a>
+
+            </form>
+
+            <!-- FOOTER -->
+
+            <div class="form-footer">
+                © {% now "Y" %} CLOTHING STORE. ALL RIGHTS RESERVED.
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- BOOTSTRAP JAVASCRIPT -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

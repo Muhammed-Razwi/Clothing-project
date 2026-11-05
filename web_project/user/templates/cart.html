@@ -1,0 +1,876 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Cart | Fashion Store</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f7f6f3;
+            font-family: 'DM Sans', sans-serif;
+            color: #292a27;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #292a27;
+            padding: 15px 5%;
+        }
+
+        .navbar-brand {
+            color: #c8a879;
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 19px;
+        }
+
+        .navbar-brand:hover {
+            color: white;
+        }
+
+        .nav-link {
+            color: white;
+            margin-left: 20px;
+        }
+
+        .nav-link:hover {
+            color: #c8a879;
+        }
+
+        .wishlist-nav {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 600;
+        }
+
+        .wishlist-nav:hover {
+            color: #c8a879;
+        }
+
+        .logout-btn {
+            background: #c8a879;
+            color: #292a27;
+            border-radius: 6px;
+            padding: 8px 20px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .logout-btn:hover {
+            background: white;
+            color: #292a27;
+        }
+
+        /* CART PAGE */
+
+        .cart-container {
+            padding-top: 45px;
+            padding-bottom: 70px;
+        }
+
+        .cart-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 35px;
+            font-weight: 600;
+        }
+
+        .cart-subtitle {
+            color: #888;
+        }
+
+        /* CART ITEM */
+
+        .cart-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+        }
+
+        .cart-image {
+            width: 130px;
+            height: 145px;
+            object-fit: contain;
+            background: #eeece7;
+            border-radius: 8px;
+        }
+
+        .cart-product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 21px;
+            font-weight: 600;
+        }
+
+        .cart-detail {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 5px;
+        }
+
+        .cart-price {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .cart-subtotal {
+            color: #98703e;
+            font-weight: 700;
+        }
+
+        /* QUANTITY BUTTONS */
+
+        .quantity-control {
+            display: inline-flex;
+            align-items: center;
+            border: 1px solid #ddd6ca;
+            border-radius: 7px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .quantity-btn {
+            width: 35px;
+            height: 35px;
+            border: none;
+            background: #f3f0e9;
+            color: #292a27;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .quantity-btn:hover {
+            background: #c8a879;
+        }
+
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .quantity-value {
+            min-width: 42px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .remove-btn {
+            border: 1px solid #c0392b;
+            background: white;
+            color: #c0392b;
+            padding: 7px 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .remove-btn:hover {
+            background: #c0392b;
+            color: white;
+        }
+
+        /* SUMMARY */
+
+        .summary-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eeeae3;
+            gap: 10px;
+        }
+
+        .total-row {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .checkout-btn {
+            display: block;
+            width: 100%;
+            background: #292a27;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 13px;
+            border-radius: 7px;
+            font-weight: 700;
+            margin-top: 20px;
+        }
+
+        .checkout-btn:hover {
+            background: #a47b4c;
+            color: white;
+        }
+
+        .continue-btn {
+            display: block;
+            background: #c8a879;
+            color: #292a27;
+            text-decoration: none;
+            padding: 11px 20px;
+            border-radius: 7px;
+            font-weight: 600;
+        }
+
+        .continue-btn:hover {
+            background: #292a27;
+            color: white;
+        }
+
+        /* EMPTY CART */
+
+        .empty-cart {
+            background: white;
+            padding: 65px 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .empty-cart-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        /* MESSAGE */
+
+        #cartMessage {
+            display: none;
+            margin-bottom: 20px;
+        }
+
+         .logo-container {
+            margin-right: -25px;
+            position: absolute;
+            top: -5px;
+            left: -35px;
+            z-index: 10;
+        }
+
+        .owner-logo {
+            width: 150px;
+            height: 85px;
+            object-fit: contain;
+            display: block;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            background: #292a27;
+            color: #ccc;
+            padding: 25px;
+            text-align: center;
+            font-size: 13px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 768px) {
+
+            .cart-heading {
+                font-size: 29px;
+            }
+
+            .cart-image {
+                width: 100%;
+                height: 190px;
+            }
+
+            .cart-card {
+                padding: 15px;
+            }
+
+            .summary-card {
+                margin-top: 20px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar navbar-expand-lg">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="{% url 'user_dashboard' %}">
+                FASHION STORE
+            </a>
+
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarMenu">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarMenu">
+
+                <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user_dashboard' %}">
+                            Home
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="wishlist-nav" href="{% url 'user_wishlist' %}">
+                            ♥ Wishlist
+                        </a>
+                    </li>
+
+                    <li class="nav-item mt-3 mt-lg-0 ms-lg-3">
+                        <a href="{% url 'user_logout' %}" class="logout-btn">
+                            Logout
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CART CONTENT -->
+
+    <div class="container cart-container">
+        <div class="logo-container">
+                <img src="{% static 'images/logo1.png' %}" alt="Website Logo" class="owner-logo">
+            </div>
+
+
+        <h1 class="cart-heading">
+            My Shopping Cart
+        </h1>
+
+        <p class="cart-subtitle">
+            Review your selected products before checkout.
+        </p>
+
+        <div id="cartMessage" class="alert" role="alert"></div>
+
+        <div class="row g-4">
+
+            <!-- CART PRODUCTS -->
+
+            <div class="col-lg-8" id="cartProducts">
+
+                {% for item in cart_items %}
+
+                <div class="cart-card"
+                    data-update-url="{% url 'update_cart_quantity' item.product.id %}"
+                    data-unit-price="{{ item.product.selling_price }}">
+
+                    <div class="row align-items-center g-3">
+
+                        <!-- PRODUCT IMAGE -->
+
+                        <div class="col-md-3 col-5">
+
+                            {% if item.product.front_image %}
+
+                            <img src="/media/{{ item.product.front_image }}" class="cart-image"
+                                alt="{{ item.product.product_name }}">
+
+                            {% else %}
+
+                            <div class="cart-image d-flex justify-content-center align-items-center">
+                                No Image
+                            </div>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- PRODUCT DETAILS -->
+
+                        <div class="col-md-6 col-7">
+
+                            <h5 class="cart-product-name">
+                                {{ item.product.product_name }}
+                            </h5>
+
+                            <p class="cart-detail">
+                                Category: {{ item.product.category.category_name }}
+                            </p>
+
+                            <p class="cart-detail">
+                                Size: {{ item.product.size.size_name }}
+                            </p>
+
+                            <p class="cart-detail">
+                                Colour: {{ item.product.colour.colour_name }}
+                            </p>
+
+                            <p class="cart-detail mb-1">
+                                Quantity:
+                            </p>
+
+                            <!-- QUANTITY BUTTONS -->
+
+                            <div class="quantity-control">
+
+                                <button type="button" class="quantity-btn decrease-btn">
+                                    −
+                                </button>
+
+                                <span class="quantity-value">
+                                    {{ item.quantity }}
+                                </span>
+
+                                <button type="button" class="quantity-btn increase-btn">
+                                    +
+                                </button>
+
+                            </div>
+
+                            <div class="cart-price mt-2">
+                                ₹{{ item.product.selling_price|floatformat:2 }}
+                            </div>
+
+                        </div>
+
+
+                        <!-- SUBTOTAL AND REMOVE -->
+
+                        <div class="col-md-3 col-12 text-md-end">
+
+                            <p class="cart-detail">
+                                Subtotal
+                            </p>
+
+                            <h5 class="cart-subtotal">
+                                ₹{{ item.subtotal|floatformat:2 }}
+                            </h5>
+
+                            <form method="POST" action="{% url 'remove_from_cart' item.id %}">
+
+                                {% csrf_token %}
+
+                                <button type="submit" class="remove-btn">
+                                    Remove
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <!-- EMPTY CART -->
+
+                <div class="empty-cart">
+
+                    <div class="empty-cart-icon">
+                        🛒
+                    </div>
+
+                    <h3>Your Cart is Empty</h3>
+
+                    <p class="text-muted">
+                        You haven't added any products to your cart yet.
+                    </p>
+
+                    <a href="{% url 'user_dashboard' %}" class="continue-btn mt-3">
+                        Start Shopping
+                    </a>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- ORDER SUMMARY -->
+
+            <div class="col-lg-4" id="summaryColumn"
+                {% if not cart_items %}style="display:none;"{% endif %}>
+
+                <div class="summary-card">
+
+                    <h4 class="summary-heading">
+                        Order Summary
+                    </h4>
+
+                    <div class="summary-row">
+
+                        <span>Total Items</span>
+
+                        <strong id="totalItems">
+                            {{ cart_count }}
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>Subtotal</span>
+
+                        <strong id="subtotalAmount">
+                            ₹{{ total_amount|floatformat:2 }}
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>Delivery</span>
+
+                        <strong>
+                            Calculated at checkout
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-row total-row">
+
+                        <span>Total Amount</span>
+
+                        <span id="totalAmount">
+                            ₹{{ total_amount|floatformat:2 }}
+                        </span>
+
+                    </div>
+
+                    <a href="{% url 'checkout' %}" class="checkout-btn">
+                        Buy Now
+                    </a>
+
+                    <a href="{% url 'user_dashboard' %}" class="continue-btn w-100 text-center mt-3">
+                        Continue Shopping
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+        © 2026 Fashion Store. All Rights Reserved.
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        const cartMessage = document.getElementById("cartMessage");
+
+
+        // DISPLAY MESSAGE
+
+        function showCartMessage(message, type = "danger") {
+
+            cartMessage.textContent = message;
+            cartMessage.className = "alert alert-" + type;
+            cartMessage.style.display = "block";
+
+        }
+
+
+        function hideCartMessage() {
+
+            cartMessage.style.display = "none";
+
+        }
+
+
+        // FORMAT PRICE
+
+        function formatPrice(amount) {
+
+            return "₹" + Number(amount).toFixed(2);
+
+        }
+
+
+        // UPDATE ORDER SUMMARY
+
+        function updateCartSummary() {
+
+            const cards = document.querySelectorAll(".cart-card");
+
+            let totalAmount = 0;
+            let totalItems = 0;
+
+            cards.forEach(card => {
+
+                const quantity = parseInt(
+                    card.querySelector(".quantity-value").textContent
+                );
+
+                const unitPrice = parseFloat(card.dataset.unitPrice);
+
+                totalAmount += quantity * unitPrice;
+                totalItems += quantity;
+
+            });
+
+            document.getElementById("totalItems").textContent = totalItems;
+
+            document.getElementById("subtotalAmount").textContent =
+                formatPrice(totalAmount);
+
+            document.getElementById("totalAmount").textContent =
+                formatPrice(totalAmount);
+
+        }
+
+
+        // CHECK EMPTY CART
+
+        function checkEmptyCart() {
+
+            const cards = document.querySelectorAll(".cart-card");
+
+            if (cards.length === 0) {
+
+                document.getElementById("summaryColumn").style.display = "none";
+
+                document.getElementById("cartProducts").innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <h3>Your Cart is Empty</h3>
+                        <p class="text-muted">
+                            You haven't added any products to your cart yet.
+                        </p>
+                        <a href="{% url 'user_dashboard' %}" class="continue-btn mt-3">
+                            Start Shopping
+                        </a>
+                    </div>
+                `;
+
+            }
+
+        }
+
+
+        // UPDATE QUANTITY IN DJANGO
+
+        async function updateQuantity(card, newQuantity) {
+
+            const updateUrl = card.dataset.updateUrl;
+
+            const quantityValue = card.querySelector(".quantity-value");
+
+            const buttons = card.querySelectorAll(".quantity-btn");
+
+            buttons.forEach(button => button.disabled = true);
+
+            hideCartMessage();
+
+            try {
+
+                const formData = new FormData();
+
+                formData.append("quantity", newQuantity);
+
+                const response = await fetch(updateUrl, {
+
+                    method: "POST",
+
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                        "X-CSRFToken": card.querySelector(
+                            'input[name="csrfmiddlewaretoken"]'
+                        )?.value || ""
+                    },
+
+                    body: formData
+
+                });
+
+
+                // CHECK JSON RESPONSE
+
+                const contentType = response.headers.get("content-type");
+
+                if (!contentType || !contentType.includes("application/json")) {
+
+                    throw new Error(
+                        "Unexpected server response. Please check your Django view."
+                    );
+
+                }
+
+                const data = await response.json();
+
+                if (!response.ok || !data.success) {
+
+                    throw new Error(
+                        data.message || "Unable to update cart."
+                    );
+
+                }
+
+
+                // REMOVE PRODUCT WHEN QUANTITY IS ZERO
+
+                if (data.removed || data.quantity === 0) {
+
+                    card.remove();
+
+                    updateCartSummary();
+
+                    checkEmptyCart();
+
+                    return;
+
+                }
+
+
+                // UPDATE QUANTITY
+
+                quantityValue.textContent = data.quantity;
+
+
+                // UPDATE SUBTOTAL
+
+                const unitPrice = parseFloat(card.dataset.unitPrice);
+
+                const subtotal = unitPrice * data.quantity;
+
+                card.querySelector(".cart-subtotal").textContent =
+                    formatPrice(subtotal);
+
+
+                // UPDATE TOTAL
+
+                updateCartSummary();
+
+            }
+
+            catch (error) {
+
+                showCartMessage(error.message, "danger");
+
+            }
+
+            finally {
+
+                if (document.body.contains(card)) {
+
+                    buttons.forEach(button => button.disabled = false);
+
+                }
+
+            }
+
+        }
+
+
+        // PLUS AND MINUS BUTTONS
+
+        document.addEventListener("click", function(event) {
+
+            const increaseButton = event.target.closest(".increase-btn");
+
+            const decreaseButton = event.target.closest(".decrease-btn");
+
+            if (!increaseButton && !decreaseButton) {
+                return;
+            }
+
+            const button = increaseButton || decreaseButton;
+
+            const card = button.closest(".cart-card");
+
+            const quantityValue = card.querySelector(".quantity-value");
+
+            const currentQuantity = parseInt(quantityValue.textContent);
+
+            let newQuantity;
+
+            if (increaseButton) {
+
+                newQuantity = currentQuantity + 1;
+
+            } else {
+
+                newQuantity = currentQuantity - 1;
+
+            }
+
+            if (newQuantity < 0) {
+                return;
+            }
+
+            updateQuantity(card, newQuantity);
+
+        });
+
+
+        // INITIAL SUMMARY
+
+        document.addEventListener("DOMContentLoaded", function() {
+
+            if (document.querySelectorAll(".cart-card").length > 0) {
+
+                updateCartSummary();
+
+            }
+
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: linear-gradient(135deg, #1e293b, #334155);
+    font-family: 'Poppins', sans-serif;
+}
+
+.register-card{
+    background: #ffffff;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.register-card h2{
+    color: #1e293b;
+}
+
+.form-control{
+    height: 50px;
+    border-radius: 10px;
+}
+
+.form-control:focus{
+    border-color: #0d6efd;
+    box-shadow: none;
+}
+
+.btn-register{
+    background: #0d6efd;
+    color: #fff;
+    height: 50px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-register:hover{
+    background: #0b5ed7;
+    color: #fff;
+}
+
+.login-link{
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link:hover{
+    text-decoration: underline;
+}
+
+@media(max-width:576px){
+    .register-card{
+        padding: 25px;
+    }
+
+    .register-card h2{
+        font-size: 1.7rem;
+    }
+}

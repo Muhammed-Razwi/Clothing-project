@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ page_title }}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+        :root {
+            --dark: #292a27;
+            --brown: #a47b4c;
+            --brown-dark: #80603d;
+            --cream: #f4f0e9;
+            --white: #ffffff;
+            --text: #33352f;
+            --muted: #85847e;
+            --border: #e9e3d9;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--dark);
+            padding: 18px 35px;
+        }
+
+        .brand-name {
+            color: var(--white);
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .navbar-text {
+            color: #d4c7b5;
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        /* Main section */
+        .main-section {
+            min-height: calc(100vh - 130px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 50px 15px;
+        }
+
+        /* Form card */
+        .form-card {
+            width: 100%;
+            max-width: 500px;
+            background: var(--white);
+            padding: 42px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            box-shadow: 0 12px 35px rgba(41, 42, 39, 0.08);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .form-icon {
+            width: 55px;
+            height: 55px;
+            margin: 0 auto 18px;
+            background: var(--cream);
+            color: var(--brown);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+        }
+
+        .form-card h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--dark);
+            font-size: 30px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .form-description {
+            text-align: center;
+            color: var(--muted);
+            font-size: 14px;
+            margin-bottom: 30px;
+        }
+
+        /* Labels */
+        .form-label {
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 9px;
+        }
+
+        /* Input */
+        .form-control {
+            height: 52px;
+            padding: 12px 15px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: #fcfbf9;
+            font-size: 14px;
+            color: var(--text);
+            transition: 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: var(--white);
+            border-color: var(--brown);
+            box-shadow: 0 0 0 3px rgba(164, 123, 76, 0.12);
+        }
+
+        .form-control::placeholder {
+            color: #aaa69e;
+        }
+
+        /* Submit button */
+        .btn-submit {
+            height: 52px;
+            background: var(--dark);
+            color: var(--white);
+            border: none;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: var(--brown);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* Dashboard button */
+        .btn-dashboard {
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--cream);
+            color: var(--dark);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .btn-dashboard:hover {
+            background: #e8dfd2;
+            color: var(--dark);
+        }
+
+        /* Alerts */
+        .alert {
+            border: none;
+            border-radius: 9px;
+            font-size: 13px;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: #bdb5a9;
+            text-align: center;
+            padding: 18px 10px;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 576px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .brand-name {
+                font-size: 17px;
+            }
+
+            .navbar-text {
+                font-size: 10px;
+            }
+
+            .form-card {
+                padding: 30px 22px;
+            }
+
+            .form-card h2 {
+                font-size: 26px;
+            }
+
+            .main-section {
+                padding: 35px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+
+            <a href="{% url 'owner_dashboard' %}" class="brand-name">
+                CLOTHING STORE.
+            </a>
+
+            <span class="navbar-text">
+                STORE MANAGEMENT
+            </span>
+
+        </div>
+    </nav>
+
+
+    <!-- Main Form Section -->
+    <div class="main-section">
+
+        <div class="form-card">
+
+            <div class="form-icon">
+                ✦
+            </div>
+
+            <h2>{{ page_title }}</h2>
+
+            <p class="form-description">
+                Manage your clothing colours with ease.
+            </p>
+
+
+            <!-- Django Messages -->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                         role="alert">
+
+                        {{ message }}
+
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="alert"
+                                aria-label="Close">
+                        </button>
+
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+
+            <!-- Colour Form -->
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-4">
+
+                    <label for="colour_name" class="form-label">
+                        Colour Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="colour_name"
+                        name="colour_name"
+                        class="form-control"
+                        placeholder="Example: Black, White, Red"
+                        value="{{ colour_item.colour_name|default:'' }}"
+                        maxlength="50"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit" class="btn btn-submit w-100">
+                    {{ button_text }}
+                </button>
+
+
+                <a href="{% url 'owner_dashboard' %}"
+                   class="btn-dashboard mt-3">
+
+                    ← Back to Dashboard
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        © {% now "Y" %} CLOTHING STORE. ALL RIGHTS RESERVED.
+    </footer>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html> 

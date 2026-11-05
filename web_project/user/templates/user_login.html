@@ -1,0 +1,354 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>User Login</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: url("{% static 'image/img1.png' %}") no-repeat center center;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            min-height: 100vh;
+            font-family: 'DM Sans', sans-serif;
+            position: relative;
+        }
+
+        /* LIGHT TINT OVER BACKGROUND IMAGE */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(69, 67, 65, 0.434);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container-fluid {
+            position: relative;
+            z-index: 1;
+        }
+
+        .left-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+        }
+
+        .content {
+            max-width: 450px;
+        }
+
+        .content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 65px;
+            font-weight: 700;
+            color: #e7d49e;
+            text-shadow: 2px 3px 12px rgba(0, 0, 0, 0.55);
+        }
+
+        /* LOGIN CARD */
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+            border: 1px solid rgba(164, 123, 76, 0.2);
+            border-radius: 18px;
+            background: #f8f5ef;
+            overflow: hidden;
+            box-shadow: 0 15px 45px rgba(41, 42, 39, 0.20) !important;
+            transition: 0.3s ease;
+        }
+
+        .login-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px rgba(41, 42, 39, 0.25) !important;
+        }
+
+        .login-card .card-body {
+            padding: 45px !important;
+        }
+
+        /* LOGO */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .owner-logo {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* CARD HEADING */
+        .login-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            font-weight: 700;
+            color: #292a27;
+            letter-spacing: 0.5px;
+        }
+
+        .login-card p {
+            color: #85847e !important;
+            font-size: 14px;
+        }
+
+        /* FORM LABELS */
+        .login-card .form-label {
+            color: #49372d;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        /* INPUT FIELDS */
+        .login-card .form-control {
+            height: 50px;
+            border: 1px solid #ded5c8;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #292a27;
+            padding: 12px 15px;
+            font-size: 14px;
+            transition: 0.3s ease;
+        }
+
+        .login-card .form-control::placeholder {
+            color: #aaa49a;
+        }
+
+        .login-card .form-control:focus {
+            border-color: #a47b4c;
+            box-shadow: 0 0 0 3px rgba(164, 123, 76, 0.13);
+            background: #ffffff;
+        }
+
+        /* LOGIN BUTTON */
+        .btn-login {
+            height: 50px;
+            border: 1px solid #292a27;
+            border-radius: 8px;
+            background: #292a27;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: #a47b4c;
+            border-color: #a47b4c;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* ERROR MESSAGE */
+        .login-card .alert-danger {
+            background: #f8e9e6;
+            border: 1px solid #e9c5bd;
+            border-radius: 8px;
+            color: #a13b32;
+            font-size: 13px;
+        }
+
+        /* REGISTER LINK */
+        .register-link {
+            color: #a47b4c;
+            font-weight: 700;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+
+        .register-link:hover {
+            color: #292a27;
+            text-decoration: underline;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 576px) {
+
+            body {
+                background-attachment: scroll;
+            }
+
+            .owner-logo {
+                width: 125px;
+                height: 75px;
+            }
+
+            .login-card {
+                max-width: 430px;
+                margin: 15px;
+                border-radius: 15px;
+            }
+
+            .login-card .card-body {
+                padding: 30px !important;
+            }
+
+            .login-card h2 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+        <div class="row min-vh-100">
+
+            <!-- LEFT SIDE -->
+            <div class="col-lg-6 d-none d-lg-flex left-section">
+
+                <div class="content">
+                    <h1>Welcome Back</h1>
+                </div>
+
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="col-lg-6 col-md-12 d-flex justify-content-center align-items-center py-4">
+
+                <div class="card login-card">
+
+                    <div class="card-body">
+
+                        <!-- WEBSITE LOGO -->
+                        <div class="logo-container">
+                            <img src="{% static 'images/logo2.png' %}"
+                                 alt="Website Logo"
+                                 class="owner-logo">
+                        </div>
+
+                        <!-- LOGIN HEADING -->
+                        <h2 class="text-center mb-2">
+                            User Login
+                        </h2>
+
+                        <p class="text-center mb-4">
+                            Sign in to your account
+                        </p>
+
+                        <!-- ERROR MESSAGE -->
+                        {% if error %}
+                        <div class="alert alert-danger" id="error-alert">
+                            {{ error }}
+                        </div>
+                        {% endif %}
+
+                        <!-- LOGIN FORM -->
+                        <form method="POST">
+
+                            {% csrf_token %}
+
+                            <div class="mb-3">
+                                <label class="form-label">
+                                    Username
+                                </label>
+
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="username"
+                                    placeholder="Enter Username"
+                                    required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label">
+                                    Password
+                                </label>
+
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    name="password"
+                                    placeholder="Enter Password"
+                                    required>
+                            </div>
+
+                            <button type="submit" class="btn btn-login w-100">
+                                Login
+                            </button>
+
+                        </form>
+
+                        <!-- REGISTRATION LINK -->
+                        <div class="text-center mt-4">
+                            Don't have an account?
+
+                            <a href="{% url 'user_reg' %}" class="register-link">
+                                Register
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- HIDE ERROR MESSAGE AFTER 3 SECONDS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const alertBox = document.getElementById("error-alert");
+
+            if (alertBox) {
+
+                setTimeout(function () {
+
+                    alertBox.style.transition = "opacity 0.5s ease";
+                    alertBox.style.opacity = "0";
+
+                    setTimeout(function () {
+                        alertBox.remove();
+                    }, 500);
+
+                }, 3000);
+
+            }
+
+        });
+    </script>
+
+    <!-- BOOTSTRAP JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

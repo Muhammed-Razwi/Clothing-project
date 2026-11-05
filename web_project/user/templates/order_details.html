@@ -1,0 +1,599 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Order Details | Fashion Store</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f7f6f3;
+            font-family: 'DM Sans', sans-serif;
+            color: #292a27;
+        }
+
+        .navbar {
+            background: #292a27;
+            padding: 15px 5%;
+        }
+
+        .navbar-brand {
+            color: #c8a879;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .navbar-brand:hover {
+            color: white;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            color: #c8a879;
+        }
+
+        .page-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 600;
+        }
+
+        .detail-card {
+            background: white;
+            border: 1px solid #e9e3d9;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+        }
+
+        .card-heading {
+            font-family: 'Playfair Display', serif;
+            font-size: 23px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .detail-label {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .detail-value {
+            font-weight: 600;
+            margin-bottom: 18px;
+            overflow-wrap: anywhere;
+        }
+
+        .order-number {
+            color: #a47b4c;
+            font-weight: 700;
+        }
+
+        .product-row {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding: 18px 0;
+            border-bottom: 1px solid #eee9e1;
+        }
+
+        .product-row:last-child {
+            border-bottom: none;
+        }
+
+        .product-image,
+        .no-image {
+            width: 105px;
+            height: 120px;
+            flex-shrink: 0;
+            border-radius: 8px;
+        }
+
+        .product-image {
+            object-fit: contain;
+            background: #f5f3ef;
+            padding: 5px;
+        }
+
+        .no-image {
+            background: #eeece7;
+            color: #888;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        .product-name {
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .product-text {
+            color: #777;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .status {
+            display: inline-block;
+            background: #f5eee4;
+            color: #98703e;
+            border-radius: 20px;
+            padding: 7px 14px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .cancelled-status {
+            background: #fbe9e7;
+            color: #c0392b;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 9px 0;
+            font-size: 15px;
+        }
+
+        .grand-total {
+            border-top: 1px solid #e9e3d9;
+            padding-top: 16px;
+            margin-top: 10px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: #292a27;
+            color: white;
+            text-decoration: none;
+            padding: 11px 22px;
+            border-radius: 7px;
+            display: inline-block;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .back-btn:hover {
+            background: #a47b4c;
+            color: white;
+        }
+
+        .cancel-btn {
+            background: #c0392b;
+            color: white;
+            border: none;
+            padding: 11px 22px;
+            border-radius: 7px;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .cancel-btn:hover {
+            background: #962d22;
+            color: white;
+        }
+
+        .cancel-note {
+            color: #777;
+            font-size: 13px;
+        }
+
+        footer {
+            background: #292a27;
+            color: #ccc;
+            padding: 22px;
+            text-align: center;
+            margin-top: 60px;
+            font-size: 13px;
+        }
+
+        @media(max-width: 576px) {
+            .page-heading {
+                font-size: 30px;
+            }
+
+            .detail-card {
+                padding: 18px;
+            }
+
+            .product-image,
+            .no-image {
+                width: 80px;
+                height: 100px;
+            }
+
+            .product-row {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" href="{% url 'user_dashboard' %}">
+            FASHION STORE
+        </a>
+
+        <a href="{% url 'user_orders' %}" class="back-link">
+            ← My Orders
+        </a>
+
+    </div>
+</nav>
+
+
+<div class="container py-5">
+
+    <!-- MESSAGES -->
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                 role="alert">
+
+                {{ message }}
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                </button>
+
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+    <!-- PAGE HEADING -->
+
+    <div class="mb-4">
+
+        <h1 class="page-heading">Order Details</h1>
+
+        <p class="text-muted">
+            Order Number:
+            <span class="order-number">
+                {{ order.order_number }}
+            </span>
+        </p>
+
+    </div>
+
+
+    <!-- ORDER INFORMATION -->
+
+    <div class="detail-card">
+
+        <h4 class="card-heading">Order Information</h4>
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <p class="detail-label">Order Number</p>
+                <p class="detail-value order-number">
+                    {{ order.order_number }}
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <p class="detail-label">Order Date</p>
+                <p class="detail-value">
+                    {{ order.created_at|date:"d M Y, h:i A" }}
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <p class="detail-label">Order Status</p>
+
+                <p class="detail-value">
+
+                    {% if order.order_status == 'CANCELLED' %}
+                        <span class="status cancelled-status">
+                            {{ order.get_order_status_display }}
+                        </span>
+                    {% else %}
+                        <span class="status">
+                            {{ order.get_order_status_display }}
+                        </span>
+                    {% endif %}
+
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- CANCELLATION BUTTON -->
+
+        {% if can_cancel %}
+
+            <hr>
+
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+
+                <div>
+                    <h6 class="fw-bold mb-1">Want to cancel this order?</h6>
+
+                    <p class="cancel-note mb-0">
+                        You can cancel this order within 5 hours
+                        of placing it.
+                    </p>
+                </div>
+
+                <form method="POST"
+                      action="{% url 'cancel_order' order.id %}"
+                      onsubmit="return confirm('Are you sure you want to cancel this order?');">
+
+                    {% csrf_token %}
+
+                    <button type="submit" class="cancel-btn">
+                        ✕ Cancel Order
+                    </button>
+
+                </form>
+
+            </div>
+
+        {% elif order.order_status == 'CANCELLED' %}
+
+            <hr>
+
+            <p class="text-danger fw-bold mb-0">
+                This order has been cancelled.
+            </p>
+
+        {% elif order.order_status == 'SHIPPED' or order.order_status == 'DELIVERED' %}
+
+            <hr>
+
+            <p class="text-muted mb-0">
+                This order cannot be cancelled because it has
+                already been shipped or delivered.
+            </p>
+
+        {% else %}
+
+            <hr>
+
+            <p class="text-muted mb-0">
+                The 5-hour cancellation period has expired.
+                This order can no longer be cancelled.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- PRODUCT DETAILS -->
+
+    <div class="detail-card">
+
+        <h4 class="card-heading">Ordered Products</h4>
+
+        <!-- {% for item in order.items.all %}
+
+            <div class="product-row">
+
+               {% if item.product and item.product.front_image %}
+    <img src="{{ item.product.front_image.url }}"
+         class="product-image"
+         alt="{{ item.product_name }}">
+{% else %}
+    <div class="no-image">
+        No Image Available
+    </div>
+{% endif %}
+
+                <div class="flex-grow-1">
+
+                    <h6 class="product-name">
+                        {{ item.product_name }}
+                    </h6>
+
+                    <p class="product-text">
+                        Quantity: {{ item.quantity }}
+                    </p>
+
+                    <p class="product-text">
+                        Price: ₹{{ item.price|floatformat:2 }}
+                    </p>
+
+                    <p class="product-text mb-0">
+                        Subtotal:
+                        <strong>
+                            ₹{{ item.subtotal|floatformat:2 }}
+                        </strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+        {% empty %}
+
+            <p class="text-muted">
+                No products found in this order.
+            </p>
+
+        {% endfor %} -->
+
+{% for item in order.items.all %}
+
+<div class="order-item">
+
+    <div class="product-image-container">
+
+        {% if item.product and item.product.front_image %}
+
+            <img src="{% get_media_prefix %}{{ item.product.front_image }}"
+                 class="product-image"
+                 alt="{{ item.product_name }}">
+
+        {% else %}
+
+            <div class="no-image">
+                No Image Available
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <div class="product-info">
+
+        <h5>{{ item.product_name }}</h5>
+
+        <p>Quantity: {{ item.quantity }}</p>
+
+        <p>Price: ₹{{ item.price }}</p>
+
+        <p>Subtotal: ₹{{ item.subtotal }}</p>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+        <!-- TOTAL -->
+
+        <div class="mt-4">
+
+            <div class="total-row">
+                <span>Total Amount</span>
+                <span>
+                    ₹{{ order.total_amount|floatformat:2 }}
+                </span>
+            </div>
+
+            <div class="total-row grand-total">
+                <span>Grand Total</span>
+                <span>
+                    ₹{{ order.total_amount|floatformat:2 }}
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DELIVERY ADDRESS -->
+
+    <div class="detail-card">
+
+        <h4 class="card-heading">Delivery Address</h4>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <p class="detail-label">Customer Name</p>
+                <p class="detail-value">
+                    {{ order.full_name }}
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="detail-label">Phone Number</p>
+                <p class="detail-value">
+                    {{ order.phone }}
+                </p>
+            </div>
+
+            <div class="col-md-8">
+                <p class="detail-label">Delivery Address</p>
+                <p class="detail-value">
+                    {{ order.address }}
+                </p>
+            </div>
+
+            <div class="col-md-4">
+                <p class="detail-label">Pincode</p>
+                <p class="detail-value">
+                    {{ order.pincode }}
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PAYMENT INFORMATION -->
+
+    <div class="detail-card">
+
+        <h4 class="card-heading">Payment Information</h4>
+
+        <div class="row">
+
+            <div class="col-md-6">
+                <p class="detail-label">Payment Method</p>
+                <p class="detail-value">
+                    {{ order.get_payment_method_display }}
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <p class="detail-label">Payment Status</p>
+                <p class="detail-value">
+                    <span class="status">
+                        {{ order.payment_status }}
+                    </span>
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BACK BUTTON -->
+
+    <a href="{% url 'user_orders' %}" class="back-btn">
+        ← Back to My Orders
+    </a>
+
+</div>
+
+
+<footer>
+    <p class="mb-0">
+        © 2026 Fashion Store. All Rights Reserved.
+    </p>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+</body>
+</html>
