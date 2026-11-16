@@ -3,13 +3,16 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib import messages
 from .models import *
+from django.views.decorators.http import require_POST
 from django.db import IntegrityError, transaction
 from .models import owner, size, colour, category, Product
 from decimal import Decimal, InvalidOperation
 import os
+from django.utils import timezone
+from datetime import timedelta
 import uuid
 from user.models import Order
-
+from django.core.management.base import BaseCommand
 from django.conf import settings
 
 def owner_register(request):
@@ -610,14 +613,95 @@ side_image = models.ImageField(upload_to='products/', blank=True, null=True)
 
 
 def billing_page(request, order_id):
+
+    # Check owner login
+    if "owner_id" not in request.session:
+        return redirect("owner_login")
+
+    # Get order
+    order = get_object_or_404(Order, id=order_id)
+
+    # Get order items
+    order_items = order.items.all()
+
+    # Check whether five days have passed
+    deletion_date = order.created_at + timedelta(days=5)
+
+    can_delete_order = timezone.now() >= deletion_date
+
+    can_delete_order = (timezone.now() >= order.created_at + timedelta(days=5)
+)
+
+    # Context
+    context = {
+        "order": order,
+        "order_items": order_items,
+        "can_delete_order": can_delete_order,
+        "deletion_date": deletion_date,
+    }
+
+    return render(request, "billing.html", context)
+
+
+class Command(BaseCommand):
+
+    help = "Delete orders older than five days"
+
+    def handle(self, *args, **kwargs):
+
+        expiry_date = timezone.now() - timedelta(days=5)
+
+        expired_orders = Order.objects.filter(
+            created_at__lte=expiry_date
+        )
+
+        count = expired_orders.count()
+
+        expired_orders.delete()
+
+        self.stdout.write(
+            self.style.SUCCESS(
+                f"{count} expired order(s) deleted successfully."
+            )
+        )
+
+
+
+@require_POST
+def delete_order(request, order_id):
+
     if "owner_id" not in request.session:
         return redirect("owner_login")
 
     order = get_object_or_404(Order, id=order_id)
 
-    context = {
-        "order": order,
-        "order_items": order.items.all(),
-    }
+    deletion_date = order.created_at + timedelta(days=5)
 
-    return render(request, "billing.html", context)
+    if timezone.now() < deletion_date:
+        messages.error(
+            request,
+            "This order cannot be deleted before five days."
+        )
+        return redirect("owner_dashboard")
+
+    order_number = order.order_number
+
+    order.delete()
+
+    messages.success(
+        request,
+        f"Order {order_number} deleted successfully."
+    )
+
+    return redirect("owner_dashboard")
+
+    # Get all orders
+orders = Order.objects.all().order_by("-created_at")
+
+# Check five-day deletion period for each order
+current_time = timezone.now()
+
+for order in orders:
+    order.can_delete_order = (
+        current_time >= order.created_at + timedelta(days=5)
+    )

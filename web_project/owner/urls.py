@@ -4,6 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+
 urlpatterns =[
      path('owner-register/', views.owner_register, name='owner_register'),
      path('owner_login/', views.owner_login, name='owner_login'),
@@ -14,10 +15,11 @@ urlpatterns =[
         views.owner_dashboard,
         name="owner_dashboard"
     ),
-     path('size/add/', views.add_size, name='add_size'),
+    path('delete-order/<int:order_id>/', views.delete_order, name='delete_order'),
+    path('size/add/', views.add_size, name='add_size'),
     path('size/edit/<int:id>/', views.edit_size, name='edit_size'),
     path('size/delete/<int:id>/', views.delete_size, name='delete_size'),
-     path('logout/', views.owner_logout, name='owner_logout'),
+    path('logout/', views.owner_logout, name='owner_logout'),
     
 path('colour/add/', views.add_colour, name='add_colour'),
 path('colour/edit/<int:id>/', views.edit_colour, name='edit_colour'),
@@ -60,6 +62,7 @@ path(
     views.owner_dashboard,
     name='owner_dashboard'
 ),
+
 
 
 

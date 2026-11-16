@@ -10,7 +10,9 @@ import uuid
 from datetime import timedelta
 from django.utils import timezone
 from django.db.models import Q
-from .models import user, Product, CartItem
+from django.db.models import Sum
+from .models import user, Product, CartItem 
+from owner.models import Product, ProductSize
 
 def user_reg(request):
     if request.method == 'POST':
@@ -338,7 +340,12 @@ def product_details(request, product_id):
         'user_data': user_data,
         'product': product,
         'wishlist_count': wishlist_count,
+        'cart_item_quantity': cart_item_quantity,
     }
+
+    cart_item = CartItem.objects.filter(user=user_data,product=product).first()
+
+    cart_item_quantity = cart_item.quantity if cart_item else 0
 
     return render(
         request,
@@ -349,9 +356,12 @@ def product_details(request, product_id):
 # ADD PRODUCT TO CART
 
 # ADD PRODUCT TO CART
+
+
 @require_POST
 def add_to_cart(request, product_id):
 
+    # Check user login
     user_id = request.session.get('user_id')
 
     if not user_id:
@@ -362,62 +372,117 @@ def add_to_cart(request, product_id):
 
     try:
         user_data = user.objects.get(id=user_id)
+
     except user.DoesNotExist:
         request.session.flush()
+
         return JsonResponse({
             'success': False,
-            'message': 'Your session has expired. Please login again.'
+            'message': 'Please login again.'
         }, status=401)
 
-    product = get_object_or_404(Product, id=product_id)
+    # Get requested action
+    action = request.POST.get('action', 'add')
 
+    if action not in ['add', 'increase', 'decrease']:
+        return JsonResponse({
+            'success': False,
+            'message': 'Invalid cart action.'
+        }, status=400)
+
+    # Get requested quantity
     try:
         quantity = int(request.POST.get('quantity', 1))
     except (TypeError, ValueError):
         quantity = 1
 
-    quantity = max(1, quantity)
-
-    if product.quantity < quantity:
+    if quantity < 1:
         return JsonResponse({
             'success': False,
-            'message': 'Sorry, this quantity is not available.'
+            'message': 'Invalid quantity.'
         }, status=400)
 
+    # Update cart safely
     with transaction.atomic():
+
+        # Lock product while checking stock
+        product = get_object_or_404(
+            Product.objects.select_for_update(),
+            id=product_id
+        )
+
+        # Find and lock existing cart item
         cart_item = CartItem.objects.select_for_update().filter(
             user=user_data,
             product=product
         ).first()
 
-        if cart_item:
-            new_quantity = cart_item.quantity + quantity
+        current_quantity = cart_item.quantity if cart_item else 0
+
+        # ADD / INCREASE
+        if action in ['add', 'increase']:
+
+            new_quantity = current_quantity + quantity
 
             if new_quantity > product.quantity:
                 return JsonResponse({
                     'success': False,
-                    'message': 'You have reached the available stock limit.'
+                    'message': f'Only {product.quantity} item(s) available.',
+                    'quantity': current_quantity
                 }, status=400)
 
-            cart_item.quantity = new_quantity
-            cart_item.save()
-        else:
-            cart_item = CartItem.objects.create(
-                user=user_data,
-                product=product,
-                quantity=quantity
-            )
+            if cart_item:
 
-    cart_count = sum(
-        CartItem.objects.filter(user=user_data).values_list(
-            'quantity', flat=True
-        )
-    )
+                cart_item.quantity = new_quantity
 
+                cart_item.save(update_fields=['quantity'])
+
+            else:
+
+                cart_item = CartItem.objects.create(
+                    user=user_data,
+                    product=product,
+                    quantity=new_quantity
+                )
+
+            current_quantity = new_quantity
+
+            message = 'Product added to cart successfully!'
+
+        # DECREASE
+        elif action == 'decrease':
+
+            if cart_item:
+
+                new_quantity = current_quantity - quantity
+
+                if new_quantity <= 0:
+
+                    cart_item.delete()
+                    current_quantity = 0
+
+                else:
+
+                    cart_item.quantity = new_quantity
+
+                    cart_item.save(update_fields=['quantity'])
+
+                    current_quantity = new_quantity
+
+            message = 'Cart quantity updated successfully!'
+
+    # Calculate total cart quantity
+    cart_count = CartItem.objects.filter(
+        user=user_data
+    ).aggregate(
+        total=Sum('quantity')
+    )['total'] or 0
+
+    # Return updated information to JavaScript
     return JsonResponse({
         'success': True,
-        'message': 'Product added to cart!',
-        'quantity': cart_item.quantity,
+        'message': message,
+        'quantity': current_quantity,
         'cart_count': cart_count
     })
 
@@ -904,9 +969,11 @@ def user_profile(request):
             # Update the session name
             request.session['user_name'] = user_data.name
 
-            messages.success(request, 'Profile updated successfully!')
-            return redirect('user_profile')
+            messages.success(request, "Profile updated successfully!")
+            return redirect('user_dashboard')
 
     return render(request, 'user_profile.html', {
         'user_data': user_data
     })
+
+    

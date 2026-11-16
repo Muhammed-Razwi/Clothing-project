@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Order Placed | Fashion Store</title>
+    <title>Order Placed | Blank. STORE</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet">
@@ -15,26 +16,510 @@
           rel="stylesheet">
 
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background: #f7f6f3;
             font-family: 'DM Sans', sans-serif;
             color: #292a27;
+            overflow-x: hidden;
+            margin: 0;
         }
+
+
+        /* =========================================
+           FULL SCREEN PACKING INTRO
+        ========================================= */
+
+        .packing-intro {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+
+            background: #292a27;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            z-index: 9999;
+            overflow: hidden;
+
+            animation: introExit 0.8s ease 3.4s forwards;
+        }
+
+        @keyframes introExit {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            100% {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
+
+        .intro-content {
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+
+
+        /* =========================================
+           LOGO
+        ========================================= */
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin-bottom: 45px;
+
+            opacity: 0;
+            transform: translateY(15px) scale(0.9);
+
+            animation: logoReveal 0.8s ease 0.2s forwards;
+        }
+
+        .owner-logo {
+            width: 150px;
+            height: 75px;
+
+            object-fit: contain;
+
+            display: block;
+
+            filter: drop-shadow(0 3px 12px rgba(200, 168, 121, 0.15));
+        }
+
+        @keyframes logoReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(15px) scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+
+        .intro-heading {
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 30px;
+            font-weight: 600;
+            margin-top: 35px;
+
+            opacity: 0;
+            animation: introTextReveal 0.7s ease 2.5s forwards;
+        }
+
+        .intro-subtitle {
+            color: #aaa9a3;
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 10px;
+
+            opacity: 0;
+            animation: introTextReveal 0.7s ease 2.7s forwards;
+        }
+
+        @keyframes introTextReveal {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================================
+           PACKING SCENE
+        ========================================= */
+
+        .packing-scene {
+            width: 220px;
+            height: 190px;
+
+            margin: 0 auto;
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            perspective: 700px;
+        }
+
+        .packing-shadow {
+            position: absolute;
+            width: 135px;
+            height: 15px;
+            bottom: 13px;
+
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 50%;
+
+            opacity: 0;
+            transform: scale(0.5);
+
+            animation: shadowAppear 0.7s ease 0.5s forwards;
+        }
+
+        @keyframes shadowAppear {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+
+        /* =========================================
+           PARCEL BOX
+        ========================================= */
+
+        .parcel-box {
+            width: 120px;
+            height: 95px;
+
+            position: absolute;
+            bottom: 28px;
+
+            opacity: 0;
+            transform: translateY(70px) scale(0.6);
+
+            animation:
+                parcelAppear 0.8s cubic-bezier(0.2, 1.3, 0.4, 1)
+                0.65s forwards,
+                parcelBounce 0.45s ease 2.65s;
+        }
+
+        @keyframes parcelAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(70px) scale(0.6);
+            }
+
+            70% {
+                opacity: 1;
+                transform: translateY(-8px) scale(1.08);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes parcelBounce {
+            0% {
+                transform: translateY(0);
+            }
+
+            45% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================================
+           BOX BODY
+        ========================================= */
+
+        .parcel-body {
+            position: absolute;
+            width: 120px;
+            height: 72px;
+            bottom: 0;
+
+            background: linear-gradient(
+                100deg,
+                #d9ad75,
+                #c99a60 55%,
+                #b98249
+            );
+
+            border: 2px solid #a87942;
+            border-radius: 3px;
+
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .parcel-front {
+            position: absolute;
+            inset: 0;
+
+            background: linear-gradient(
+                90deg,
+                rgba(255,255,255,0.12),
+                transparent 45%,
+                rgba(0,0,0,0.08)
+            );
+        }
+
+        .parcel-brand {
+            position: absolute;
+            top: 28px;
+            left: 0;
+            width: 100%;
+
+            text-align: center;
+            color: #fff8ec;
+
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+
+            opacity: 0;
+            animation: parcelBrandReveal 0.5s ease 2.6s forwards;
+            z-index: 4;
+        }
+
+        @keyframes parcelBrandReveal {
+            to {
+                opacity: 1;
+            }
+        }
+
+
+        /* =========================================
+           BOX TOP FLAPS
+        ========================================= */
+
+        .parcel-flap {
+            position: absolute;
+            width: 62px;
+            height: 25px;
+
+            top: 15px;
+
+            background: #e2bb88;
+            border: 2px solid #a87942;
+
+            z-index: 1;
+        }
+
+        .parcel-flap-left {
+            left: 0;
+
+            transform-origin: bottom left;
+            transform: rotateX(-90deg) rotate(-5deg);
+
+            animation: closeLeftFlap 0.65s ease 1.65s forwards;
+        }
+
+        .parcel-flap-right {
+            right: 0;
+
+            transform-origin: bottom right;
+            transform: rotateX(-90deg) rotate(5deg);
+
+            animation: closeRightFlap 0.65s ease 1.65s forwards;
+        }
+
+        @keyframes closeLeftFlap {
+            0% {
+                transform: rotateX(-90deg) rotate(-5deg);
+            }
+
+            100% {
+                transform: rotateX(0deg) rotate(0deg);
+            }
+        }
+
+        @keyframes closeRightFlap {
+            0% {
+                transform: rotateX(-90deg) rotate(5deg);
+            }
+
+            100% {
+                transform: rotateX(0deg) rotate(0deg);
+            }
+        }
+
+
+        /* =========================================
+           PACKING TAPE
+        ========================================= */
+
+        .parcel-tape {
+            position: absolute;
+            width: 22px;
+            height: 100%;
+
+            left: 49px;
+            top: 0;
+
+            background: #f0d5ac;
+
+            border-left: 1px solid rgba(125, 84, 40, 0.25);
+            border-right: 1px solid rgba(125, 84, 40, 0.25);
+
+            transform: scaleY(0);
+            transform-origin: top;
+
+            animation: sealParcel 0.55s ease 2.25s forwards;
+
+            z-index: 3;
+        }
+
+        @keyframes sealParcel {
+            0% {
+                transform: scaleY(0);
+            }
+
+            100% {
+                transform: scaleY(1);
+            }
+        }
+
+
+        /* =========================================
+           GOLDEN SPARKLES
+        ========================================= */
+
+        .intro-sparkle {
+            position: absolute;
+            color: #c8a879;
+            font-size: 22px;
+
+            opacity: 0;
+        }
+
+        .intro-sparkle.one {
+            left: 28px;
+            top: 30px;
+            animation: sparkle 0.8s ease 2.3s forwards;
+        }
+
+        .intro-sparkle.two {
+            right: 28px;
+            top: 55px;
+            animation: sparkle 0.8s ease 2.5s forwards;
+        }
+
+        .intro-sparkle.three {
+            right: 45px;
+            bottom: 30px;
+            animation: sparkle 0.8s ease 2.65s forwards;
+        }
+
+        .intro-sparkle.four {
+            left: 45px;
+            bottom: 40px;
+            animation: sparkle 0.8s ease 2.75s forwards;
+        }
+
+        @keyframes sparkle {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(-30deg);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.4) rotate(20deg);
+            }
+
+            100% {
+                opacity: 0.8;
+                transform: scale(1) rotate(0);
+            }
+        }
+
+
+        /* =========================================
+           INTRO LOADING LINE
+        ========================================= */
+
+        .intro-progress {
+            width: 115px;
+            height: 2px;
+
+            background: rgba(255,255,255,0.15);
+
+            margin: 35px auto 0;
+            overflow: hidden;
+
+            opacity: 0;
+            animation: introTextReveal 0.5s ease 0.4s forwards;
+        }
+
+        .intro-progress span {
+            display: block;
+            height: 100%;
+            width: 0;
+
+            background: #c8a879;
+
+            animation: progressFill 2.6s ease 0.5s forwards;
+        }
+
+        @keyframes progressFill {
+            to {
+                width: 100%;
+            }
+        }
+
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
 
         .navbar {
             background: #292a27;
             padding: 15px 5%;
+            position: relative;
+            z-index: 10;
         }
 
         .navbar-brand {
             color: #c8a879;
             font-weight: 700;
             letter-spacing: 2px;
+            transition: color 0.3s ease;
         }
 
         .navbar-brand:hover {
             color: white;
         }
+
+        .continue-link {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .continue-link:hover {
+            color: #c8a879;
+        }
+
+
+        /* =========================================
+           MAIN CONTAINER
+        ========================================= */
 
         .success-container {
             max-width: 850px;
@@ -46,34 +531,187 @@
             background: white;
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,.05);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+
+            opacity: 0;
+            transform: translateY(35px) scale(0.98);
+
+            animation: cardReveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)
+                       3.65s forwards;
         }
 
-        .success-icon {
-            width: 85px;
-            height: 85px;
-            background: #e5f5e9;
-            color: #218838;
-            border-radius: 50%;
+        @keyframes cardReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+
+        /* =========================================
+           SUCCESS ICON ANIMATION
+        ========================================= */
+
+        .success-animation {
+            width: 115px;
+            height: 115px;
+            margin: 0 auto 25px;
+            position: relative;
+
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 45px;
-            margin: 0 auto 20px;
         }
+
+        .success-circle {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+
+            background: #e5f5e9;
+            border: 3px solid #218838;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+            z-index: 2;
+
+            transform: scale(0);
+
+            animation: circlePop 0.55s cubic-bezier(0.2, 1.5, 0.5, 1)
+                       4.15s forwards;
+        }
+
+        @keyframes circlePop {
+            0% {
+                transform: scale(0);
+            }
+
+            75% {
+                transform: scale(1.15);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .success-ring {
+            position: absolute;
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+
+            border: 2px solid #c8a879;
+
+            opacity: 0;
+            transform: scale(0.65);
+
+            animation: ringReveal 0.8s ease 4.4s forwards;
+        }
+
+        @keyframes ringReveal {
+            0% {
+                opacity: 0;
+                transform: scale(0.65);
+            }
+
+            60% {
+                opacity: 0.7;
+            }
+
+            100% {
+                opacity: 0;
+                transform: scale(1.35);
+            }
+        }
+
+        .success-check {
+            width: 35px;
+            height: 35px;
+            fill: none;
+            stroke: #218838;
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+
+            animation: drawCheck 0.55s ease 4.65s forwards;
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .success-glow {
+            position: absolute;
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+
+            background: rgba(33, 136, 56, 0.12);
+            z-index: 1;
+
+            animation: successPulse 2.2s ease-in-out 5.2s infinite;
+        }
+
+        @keyframes successPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: scale(1.35);
+                opacity: 0;
+            }
+        }
+
+
+        /* =========================================
+           SUCCESS HEADING
+        ========================================= */
 
         .success-title {
             font-family: 'Playfair Display', serif;
             font-size: 34px;
             font-weight: 700;
             text-align: center;
+
+            opacity: 0;
+            transform: translateY(15px);
+
+            animation: textReveal 0.7s ease 4.85s forwards;
         }
 
         .success-message {
             text-align: center;
             color: #777;
             margin-bottom: 30px;
+
+            opacity: 0;
+            transform: translateY(12px);
+
+            animation: textReveal 0.7s ease 5.05s forwards;
         }
+
+        @keyframes textReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* =========================================
+           ORDER NUMBER
+        ========================================= */
 
         .order-number {
             background: #f7f6f3;
@@ -81,12 +719,36 @@
             border-radius: 8px;
             text-align: center;
             margin-bottom: 25px;
+
+            opacity: 0;
+            transform: translateY(20px);
+
+            animation: sectionReveal 0.65s ease 5.2s forwards;
         }
 
         .order-number strong {
             color: #98703e;
             font-size: 20px;
+            display: inline-block;
+            animation: numberReveal 0.6s ease 5.5s both;
         }
+
+        @keyframes numberReveal {
+            from {
+                transform: scale(0.9);
+                letter-spacing: 0;
+            }
+
+            to {
+                transform: scale(1);
+                letter-spacing: 1px;
+            }
+        }
+
+
+        /* =========================================
+           INFORMATION CARDS
+        ========================================= */
 
         .section-heading {
             font-family: 'Playfair Display', serif;
@@ -99,6 +761,30 @@
             padding: 20px;
             border-radius: 10px;
             margin-bottom: 22px;
+
+            opacity: 0;
+            transform: translateY(25px);
+
+            animation: sectionReveal 0.65s ease forwards;
+        }
+
+        .details-card:nth-of-type(1) {
+            animation-delay: 5.35s;
+        }
+
+        .details-card:nth-of-type(2) {
+            animation-delay: 5.55s;
+        }
+
+        .details-card:nth-of-type(3) {
+            animation-delay: 5.75s;
+        }
+
+        @keyframes sectionReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .detail-row {
@@ -138,24 +824,64 @@
             font-weight: 700;
         }
 
+
+        /* =========================================
+           PAYMENT MESSAGE
+        ========================================= */
+
+        .payment-message {
+            opacity: 0;
+            transform: translateY(15px);
+
+            animation: sectionReveal 0.65s ease 5.95s forwards;
+        }
+
+
+        /* =========================================
+           CONTINUE SHOPPING BUTTON
+        ========================================= */
+
         .home-btn {
             display: block;
             width: 100%;
+
             background: #292a27;
             color: white;
+
             padding: 14px;
             text-align: center;
             text-decoration: none;
+
             border-radius: 7px;
             font-weight: 700;
             margin-top: 25px;
-            transition: .3s;
+
+            transition: all 0.35s ease;
+
+            opacity: 0;
+            transform: translateY(15px);
+
+            animation: buttonReveal 0.7s ease 6.15s forwards;
+        }
+
+        @keyframes buttonReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .home-btn:hover {
             background: #a47b4c;
             color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(164, 123, 76, 0.2);
         }
+
+
+        /* =========================================
+           FOOTER
+        ========================================= */
 
         footer {
             background: #292a27;
@@ -164,7 +890,17 @@
             text-align: center;
         }
 
+
+        /* =========================================
+           RESPONSIVE
+        ========================================= */
+
         @media (max-width: 576px) {
+
+            .success-container {
+                margin: 30px auto;
+            }
+
             .success-card {
                 padding: 22px;
             }
@@ -177,49 +913,242 @@
             .product-row {
                 font-size: 14px;
             }
+
+            .success-animation {
+                width: 100px;
+                height: 100px;
+            }
+
+            .success-circle {
+                width: 75px;
+                height: 75px;
+            }
+
+            .success-ring {
+                width: 95px;
+                height: 95px;
+            }
+
+            .success-glow {
+                width: 75px;
+                height: 75px;
+            }
+
+            .logo-container {
+                margin-bottom: 35px;
+            }
+
+            .owner-logo {
+                width: 125px;
+                height: 65px;
+            }
+
+            .intro-heading {
+                font-size: 25px;
+            }
+
+            .packing-scene {
+                transform: scale(0.9);
+            }
         }
+
+
+        /* =========================================
+           REDUCED MOTION ACCESSIBILITY
+        ========================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-delay: 0ms !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .packing-intro {
+                display: none;
+            }
+
+            .success-card,
+            .success-title,
+            .success-message,
+            .order-number,
+            .details-card,
+            .payment-message,
+            .home-btn {
+                opacity: 1;
+                transform: none;
+            }
+
+            .success-circle {
+                transform: scale(1);
+            }
+
+            .success-check {
+                stroke-dashoffset: 0;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
-    <!-- Navbar -->
+
+    <!-- =========================================
+         FULL SCREEN ORDER PACKING INTRO
+    ========================================= -->
+
+    <div class="packing-intro">
+
+        <div class="intro-content">
+
+
+            <!-- WEBSITE LOGO -->
+
+            <div class="logo-container">
+
+                <img src="{% static 'images/logo1.png' %}"
+                     alt="Website Logo"
+                     class="owner-logo">
+
+            </div>
+
+
+            <!-- PACKING SCENE -->
+
+            <div class="packing-scene">
+
+                <div class="packing-shadow"></div>
+
+                <span class="intro-sparkle one">✦</span>
+                <span class="intro-sparkle two">✧</span>
+                <span class="intro-sparkle three">✦</span>
+                <span class="intro-sparkle four">✧</span>
+
+
+                <div class="parcel-box">
+
+                    <div class="parcel-flap parcel-flap-left"></div>
+
+                    <div class="parcel-flap parcel-flap-right"></div>
+
+                    <div class="parcel-body">
+
+                        <div class="parcel-front"></div>
+
+                        <div class="parcel-tape"></div>
+
+                        <div class="parcel-brand">
+                            BLANK.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- INTRO TEXT -->
+
+            <h2 class="intro-heading">
+                Packing Your Order
+            </h2>
+
+            <p class="intro-subtitle">
+                Something special is on its way
+            </p>
+
+
+            <!-- PROGRESS LINE -->
+
+            <div class="intro-progress">
+                <span></span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================
+         NAVBAR
+    ========================================= -->
+
     <nav class="navbar">
+
         <div class="container-fluid">
 
             <a class="navbar-brand" href="{% url 'user_dashboard' %}">
-                FASHION STORE
+                Blank. STORE
             </a>
 
             <a href="{% url 'user_dashboard' %}"
-               class="text-white text-decoration-none">
+               class="continue-link">
+
                 Continue Shopping
+
             </a>
 
         </div>
+
     </nav>
 
 
-    <!-- Order Confirmation -->
+
+    <!-- =========================================
+         ORDER CONFIRMATION CARD
+    ========================================= -->
+
     <div class="success-container">
 
         <div class="success-card">
 
-            <div class="success-icon">
-                &#10003;
+
+            <!-- SUCCESS ICON ANIMATION -->
+
+            <div class="success-animation">
+
+                <div class="success-glow"></div>
+
+                <div class="success-ring"></div>
+
+                <div class="success-circle">
+
+                    <svg class="success-check"
+                         viewBox="0 0 40 40"
+                         xmlns="http://www.w3.org/2000/svg">
+
+                        <path d="M8 21 L17 29 L33 11"></path>
+
+                    </svg>
+
+                </div>
+
             </div>
+
+
+
+            <!-- SUCCESS HEADING -->
 
             <h1 class="success-title">
                 Your Order Has Been Placed!
             </h1>
 
             <p class="success-message">
-                Thank you for shopping with Fashion Store.
+                Thank you for shopping with Blank. Store.
                 Your order has been successfully received.
             </p>
 
 
-            <!-- Order Number -->
+
+            <!-- ORDER NUMBER -->
+
             <div class="order-number">
 
                 <p class="text-muted mb-1">
@@ -231,7 +1160,9 @@
             </div>
 
 
-            <!-- Order Status -->
+
+            <!-- ORDER STATUS -->
+
             <div class="details-card">
 
                 <h4 class="section-heading">
@@ -239,33 +1170,51 @@
                 </h4>
 
                 <div class="detail-row">
+
                     <span>Order Date</span>
-                    <strong>{{ order.created_at|date:"d M Y, h:i A" }}</strong>
+
+                    <strong>
+                        {{ order.created_at|date:"d M Y, h:i A" }}
+                    </strong>
+
                 </div>
 
                 <div class="detail-row">
+
                     <span>Order Status</span>
+
                     <span class="status">
                         {{ order.get_order_status_display }}
                     </span>
+
                 </div>
 
                 <div class="detail-row">
+
                     <span>Payment Method</span>
-                    <strong>{{ order.get_payment_method_display }}</strong>
+
+                    <strong>
+                        {{ order.get_payment_method_display }}
+                    </strong>
+
                 </div>
 
                 <div class="detail-row">
+
                     <span>Payment Status</span>
+
                     <span class="payment-status">
                         {{ order.payment_status }}
                     </span>
+
                 </div>
 
             </div>
 
 
-            <!-- Delivery Details -->
+
+            <!-- DELIVERY DETAILS -->
+
             <div class="details-card">
 
                 <h4 class="section-heading">
@@ -273,29 +1222,51 @@
                 </h4>
 
                 <div class="detail-row">
+
                     <span>Full Name</span>
-                    <strong>{{ order.full_name }}</strong>
+
+                    <strong>
+                        {{ order.full_name }}
+                    </strong>
+
                 </div>
 
                 <div class="detail-row">
+
                     <span>Phone Number</span>
-                    <strong>{{ order.phone }}</strong>
+
+                    <strong>
+                        {{ order.phone }}
+                    </strong>
+
                 </div>
 
                 <div class="detail-row">
+
                     <span>Delivery Address</span>
-                    <strong>{{ order.address }}</strong>
+
+                    <strong>
+                        {{ order.address }}
+                    </strong>
+
                 </div>
 
                 <div class="detail-row">
+
                     <span>Pincode</span>
-                    <strong>{{ order.pincode }}</strong>
+
+                    <strong>
+                        {{ order.pincode }}
+                    </strong>
+
                 </div>
 
             </div>
 
 
-            <!-- Ordered Products -->
+
+            <!-- ORDERED PRODUCTS -->
+
             <div class="details-card">
 
                 <h4 class="section-heading">
@@ -304,24 +1275,30 @@
 
                 {% for item in order_items %}
 
-                <div class="product-row">
+                    <div class="product-row">
 
-                    <div>
-                        <strong>{{ item.product_name }}</strong>
+                        <div>
 
-                        <div class="text-muted small">
-                            Quantity: {{ item.quantity }}
+                            <strong>
+                                {{ item.product_name }}
+                            </strong>
+
+                            <div class="text-muted small">
+                                Quantity: {{ item.quantity }}
+                            </div>
+
                         </div>
+
+                        <strong>
+                            ₹{{ item.subtotal|floatformat:2 }}
+                        </strong>
+
                     </div>
-
-                    <strong>
-                        ₹{{ item.subtotal|floatformat:2 }}
-                    </strong>
-
-                </div>
 
                 {% endfor %}
 
+
+                <!-- TOTAL AMOUNT -->
 
                 <div class="detail-row total-row">
 
@@ -336,38 +1313,62 @@
             </div>
 
 
-            <!-- Payment Message -->
-            {% if order.payment_method == 'COD' %}
 
-                <div class="alert alert-success">
-                    <strong>Cash on Delivery:</strong>
-                    Please pay when your order is delivered.
-                </div>
+            <!-- PAYMENT MESSAGE -->
 
-            {% else %}
+            <div class="payment-message">
 
-                <div class="alert alert-warning">
-                    <strong>Online Payment:</strong>
-                    Your payment is pending. Complete payment through the payment gateway when it is integrated.
-                </div>
+                {% if order.payment_method == 'COD' %}
 
-            {% endif %}
+                    <div class="alert alert-success">
+
+                        <strong>Cash on Delivery:</strong>
+
+                        Please pay when your order is delivered.
+
+                    </div>
+
+                {% else %}
+
+                    <div class="alert alert-warning">
+
+                        <strong>Online Payment:</strong>
+
+                        Your payment is pending. Complete payment through the payment gateway when it is integrated.
+
+                    </div>
+
+                {% endif %}
+
+            </div>
 
 
-            <!-- Continue Shopping -->
+
+            <!-- CONTINUE SHOPPING -->
+
             <a href="{% url 'user_dashboard' %}" class="home-btn">
+
                 Continue Shopping
+
             </a>
+
 
         </div>
 
     </div>
 
 
-    <!-- Footer -->
+
+    <!-- =========================================
+         FOOTER
+    ========================================= -->
+
     <footer>
-        © 2026 Fashion Store. All Rights Reserved.
+
+        © 2026 Blank. Store. All Rights Reserved.
+
     </footer>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

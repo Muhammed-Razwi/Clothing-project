@@ -100,4 +100,7 @@ class Product(models.Model):
     def selling_price(self):
         return self.mrp - (self.mrp * self.discount_rate / 100)
 
-    
+class ProductSize(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    size = models.ForeignKey(size, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=0)

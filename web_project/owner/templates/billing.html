@@ -1,3 +1,4 @@
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -192,6 +193,41 @@
             color: white;
         }
 
+        /* DELETE ORDER BUTTON */
+
+        .delete-order-btn {
+            background: #b42318;
+            color: white;
+            border: none;
+            padding: 11px 25px;
+            border-radius: 7px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .delete-order-btn:hover {
+            background: #8f1c13;
+            color: white;
+        }
+
+        .delete-info {
+            background: #fff8ed;
+            border: 1px solid #f0dfc5;
+            color: #76552e;
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-size: 13px;
+        }
+
+        .delete-unavailable {
+            background: #f5f5f4;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            border-radius: 8px;
+            padding: 14px 18px;
+            font-size: 13px;
+        }
+
         @media(max-width: 576px) {
             .invoice-card {
                 padding: 20px;
@@ -263,6 +299,7 @@
 <body>
 
     <!-- NAVBAR -->
+
     <nav class="navbar no-print">
         <div class="container-fluid px-4 px-lg-5">
 
@@ -280,11 +317,13 @@
 
 
     <!-- INVOICE -->
+
     <div class="container invoice-container">
 
         <div class="invoice-card">
 
             <!-- STORE AND INVOICE HEADING -->
+
             <div class="row align-items-start mb-4">
 
                 <div class="col-sm-6 mb-3">
@@ -325,6 +364,7 @@
 
 
             <!-- CUSTOMER AND ORDER DETAILS -->
+
             <div class="row g-3 my-4">
 
                 <div class="col-md-6">
@@ -416,6 +456,7 @@
 
 
             <!-- PRODUCT TABLE -->
+
             <h6 class="invoice-section-title mt-4">
                 ORDERED PRODUCTS
             </h6>
@@ -484,6 +525,7 @@
 
 
             <!-- TOTAL -->
+
             <div class="total-box">
 
                 <div class="total-row">
@@ -500,6 +542,7 @@
 
 
             <!-- ORDER STATUS -->
+
             <div class="mt-4">
 
                 <strong>Order Status: </strong>
@@ -534,6 +577,7 @@
 
 
             <!-- FOOTER -->
+
             <div class="invoice-footer">
 
                 <p class="mb-1">
@@ -550,6 +594,7 @@
 
 
         <!-- ACTION BUTTONS -->
+
         <div class="d-flex justify-content-center gap-3 flex-wrap my-4 no-print">
 
             <a href="{% url 'owner_dashboard' %}" class="back-btn">
@@ -561,6 +606,51 @@
                     onclick="window.print()">
                 Print Bill
             </button>
+
+        </div>
+
+
+        <!-- DELETE ORDER SECTION -->
+
+        <div class="invoice-card mt-4 no-print">
+
+            <h5 class="invoice-section-title">
+                ORDER DELETION
+            </h5>
+
+            <p class="muted-text">
+                Orders become eligible for deletion after five days
+                from the order creation date.
+            </p>
+
+            {% if can_delete_order %}
+
+                <div class="delete-info mb-3">
+                    <strong>Deletion period completed.</strong>
+                    This order is now eligible for permanent deletion.
+                </div>
+
+                <form method="POST"
+                      action="{% url 'delete_order' order.id %}"
+                      onsubmit="return confirm('Are you sure you want to permanently delete order {{ order.order_number }}? This action cannot be undone.');">
+
+                    {% csrf_token %}
+
+                    <button type="submit" class="delete-order-btn">
+                        Delete Order Permanently
+                    </button>
+
+                </form>
+
+            {% else %}
+
+                <div class="delete-unavailable">
+                    <strong>Deletion is not available yet.</strong>
+                    This order must reach the five-day deletion period
+                    before it can be deleted.
+                </div>
+
+            {% endif %}
 
         </div>
 
