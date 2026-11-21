@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +9,9 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+        rel="stylesheet">
 
     <style>
         * {
@@ -77,7 +78,7 @@
             text-align: center;
             width: 100%;
             padding: 20px;
-            animation: introContentReveal 1s cubic-bezier(.2,.8,.2,1) both;
+            animation: introContentReveal 1s cubic-bezier(.2, .8, .2, 1) both;
         }
 
         @keyframes introContentReveal {
@@ -104,7 +105,7 @@
             max-width: 85vw;
             object-fit: contain;
             display: block;
-            animation: logoReveal 1.2s cubic-bezier(.16,1,.3,1) both;
+            animation: logoReveal 1.2s cubic-bezier(.16, 1, .3, 1) both;
         }
 
         @keyframes logoReveal {
@@ -148,7 +149,7 @@
         }
 
         .intro-subtitle {
-            color: rgba(255,255,255,.65);
+            color: rgba(255, 255, 255, .65);
             font-size: 11px;
             letter-spacing: 4px;
             margin-top: 17px;
@@ -241,7 +242,7 @@
 
         .brand-group:hover .owner-logo {
             transform: scale(1.07);
-            filter: drop-shadow(0 0 12px rgba(200,168,121,.4));
+            filter: drop-shadow(0 0 12px rgba(200, 168, 121, .4));
         }
 
         .navbar-brand {
@@ -336,7 +337,7 @@
         .wishlist-nav:hover .wishlist-count,
         .cart-nav:hover .cart-count {
             background: white;
-            box-shadow: 0 0 12px rgba(255,255,255,.3);
+            box-shadow: 0 0 12px rgba(255, 255, 255, .3);
             transform: scale(1.12);
         }
 
@@ -363,12 +364,10 @@
             width: 55%;
             height: 200%;
             transform: rotate(25deg);
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,.85),
-                transparent
-            );
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, .85),
+                    transparent);
             transition: left .65s ease;
         }
 
@@ -380,7 +379,7 @@
             background: white;
             color: #292a27;
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(200,168,121,.3);
+            box-shadow: 0 8px 25px rgba(200, 168, 121, .3);
         }
 
         /* =========================================
@@ -403,7 +402,7 @@
             height: 52px;
             border-radius: 50%;
             border: 2px solid #c8a879;
-            transition: all .4s cubic-bezier(.2,.8,.2,1);
+            transition: all .4s cubic-bezier(.2, .8, .2, 1);
         }
 
         .profile-image {
@@ -422,14 +421,14 @@
             font-size: 25px;
             font-weight: 700;
             text-transform: uppercase;
-            box-shadow: 0 2px 8px rgba(0,0,0,.2);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
         }
 
         .profile-link:hover .profile-image,
         .profile-link:hover .profile-placeholder {
             transform: scale(1.12) rotate(5deg);
             border-color: white;
-            box-shadow: 0 0 18px rgba(200,168,121,.4);
+            box-shadow: 0 0 18px rgba(200, 168, 121, .4);
         }
 
         /* =========================================
@@ -452,12 +451,10 @@
             border-radius: 50%;
             top: -250px;
             right: -100px;
-            background: radial-gradient(
-                circle,
-                rgba(255,255,255,.55),
-                rgba(200,168,121,.12) 45%,
-                transparent 70%
-            );
+            background: radial-gradient(circle,
+                    rgba(255, 255, 255, .55),
+                    rgba(200, 168, 121, .12) 45%,
+                    transparent 70%);
             pointer-events: none;
             animation: welcomeOrb 7s ease-in-out infinite alternate;
         }
@@ -481,23 +478,24 @@
             height: 300%;
             transform: rotate(25deg);
             pointer-events: none;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,.10),
-                rgba(255,255,255,.4),
-                rgba(255,255,255,.10),
-                transparent
-            );
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, .10),
+                    rgba(255, 255, 255, .4),
+                    rgba(255, 255, 255, .10),
+                    transparent);
             animation: welcomeLightSweep 7s ease-in-out 1s infinite;
         }
 
         @keyframes welcomeLightSweep {
-            0%, 20% {
+
+            0%,
+            20% {
                 left: -50%;
             }
 
-            65%, 100% {
+            65%,
+            100% {
                 left: 140%;
             }
         }
@@ -505,7 +503,7 @@
         .welcome-section .container {
             position: relative;
             z-index: 1;
-            animation: welcomeContentReveal 1.1s cubic-bezier(.2,.8,.2,1) both;
+            animation: welcomeContentReveal 1.1s cubic-bezier(.2, .8, .2, 1) both;
         }
 
         @keyframes welcomeContentReveal {
@@ -522,7 +520,7 @@
             }
         }
 
-        .welcome-section .container > p:first-child {
+        .welcome-section .container>p:first-child {
             display: inline-block;
             letter-spacing: 3px;
             color: #8a6944;
@@ -540,19 +538,19 @@
             display: inline-block;
             color: #a47b4c;
             position: relative;
-            text-shadow: 0 0 1px rgba(164,123,76,.2);
+            text-shadow: 0 0 1px rgba(164, 123, 76, .2);
             animation: nameGlow 3s ease-in-out 1.4s infinite alternate;
         }
 
         @keyframes nameGlow {
             from {
-                text-shadow: 0 0 0 rgba(164,123,76,0);
+                text-shadow: 0 0 0 rgba(164, 123, 76, 0);
             }
 
             to {
                 text-shadow:
-                    0 0 10px rgba(164,123,76,.3),
-                    0 0 25px rgba(164,123,76,.12);
+                    0 0 10px rgba(164, 123, 76, .3),
+                    0 0 25px rgba(164, 123, 76, .12);
             }
         }
 
@@ -561,7 +559,7 @@
             margin-top: 12px;
         }
 
-        .welcome-section .container > p:last-child {
+        .welcome-section .container>p:last-child {
             animation: welcomeTextReveal .9s ease .65s both;
         }
 
@@ -606,7 +604,7 @@
 
         .search-box:focus {
             border-color: #a47b4c;
-            box-shadow: 0 0 0 4px rgba(164,123,76,.14);
+            box-shadow: 0 0 0 4px rgba(164, 123, 76, .14);
         }
 
         .search-btn {
@@ -629,12 +627,10 @@
             width: 50%;
             height: 200%;
             transform: rotate(25deg);
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,.65),
-                transparent
-            );
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, .65),
+                    transparent);
             transition: left .6s ease;
         }
 
@@ -646,7 +642,7 @@
             background: #a47b4c;
             color: white;
             transform: translateY(-3px);
-            box-shadow: 0 8px 22px rgba(164,123,76,.3);
+            box-shadow: 0 8px 22px rgba(164, 123, 76, .3);
         }
 
         .clear-btn {
@@ -692,12 +688,10 @@
             width: 60%;
             height: 100%;
             transform: skewX(-25deg);
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255,255,255,.2),
-                transparent
-            );
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, .2),
+                    transparent);
             transition: left .55s ease;
         }
 
@@ -712,7 +706,7 @@
             color: white;
             border-color: #292a27;
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(41,42,39,.18);
+            box-shadow: 0 8px 20px rgba(41, 42, 39, .18);
         }
 
         /* =========================================
@@ -726,17 +720,40 @@
         .product-column {
             display: flex;
             opacity: 0;
-            animation: productReveal .85s cubic-bezier(.2,.8,.2,1) forwards;
+            animation: productReveal .85s cubic-bezier(.2, .8, .2, 1) forwards;
         }
 
-        .product-column:nth-child(1) { animation-delay: .08s; }
-        .product-column:nth-child(2) { animation-delay: .16s; }
-        .product-column:nth-child(3) { animation-delay: .24s; }
-        .product-column:nth-child(4) { animation-delay: .32s; }
-        .product-column:nth-child(5) { animation-delay: .40s; }
-        .product-column:nth-child(6) { animation-delay: .48s; }
-        .product-column:nth-child(7) { animation-delay: .56s; }
-        .product-column:nth-child(8) { animation-delay: .64s; }
+        .product-column:nth-child(1) {
+            animation-delay: .08s;
+        }
+
+        .product-column:nth-child(2) {
+            animation-delay: .16s;
+        }
+
+        .product-column:nth-child(3) {
+            animation-delay: .24s;
+        }
+
+        .product-column:nth-child(4) {
+            animation-delay: .32s;
+        }
+
+        .product-column:nth-child(5) {
+            animation-delay: .40s;
+        }
+
+        .product-column:nth-child(6) {
+            animation-delay: .48s;
+        }
+
+        .product-column:nth-child(7) {
+            animation-delay: .56s;
+        }
+
+        .product-column:nth-child(8) {
+            animation-delay: .64s;
+        }
 
         .product-column:nth-child(n+9) {
             animation-delay: .10s;
@@ -774,7 +791,7 @@
             isolation: isolate;
             background: white;
             transition:
-                transform .4s cubic-bezier(.2,.8,.2,1),
+                transform .4s cubic-bezier(.2, .8, .2, 1),
                 box-shadow .4s ease,
                 opacity .35s ease;
             width: 100%;
@@ -795,13 +812,11 @@
             pointer-events: none;
             border-radius: inherit;
             opacity: 0;
-            background: linear-gradient(
-                135deg,
-                rgba(255,255,255,.18) 0%,
-                transparent 35%,
-                transparent 70%,
-                rgba(200,168,121,.07) 100%
-            );
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, .18) 0%,
+                    transparent 35%,
+                    transparent 70%,
+                    rgba(200, 168, 121, .07) 100%);
             transition: opacity .4s ease;
         }
 
@@ -819,26 +834,24 @@
             opacity: 0;
             transform: rotate(28deg);
 
-            background: linear-gradient(
-                90deg,
-                transparent 0%,
-                rgba(255,255,255,.03) 20%,
-                rgba(255,255,255,.38) 45%,
-                rgba(255,255,255,.16) 55%,
-                transparent 100%
-            );
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, .03) 20%,
+                    rgba(255, 255, 255, .38) 45%,
+                    rgba(255, 255, 255, .16) 55%,
+                    transparent 100%);
 
             transition:
-                left .85s cubic-bezier(.2,.8,.2,1),
+                left .85s cubic-bezier(.2, .8, .2, 1),
                 opacity .35s ease;
         }
 
         .product-card:hover {
             transform: translateY(-9px) scale(1.025);
             box-shadow:
-                0 22px 50px rgba(0,0,0,.15),
-                0 5px 18px rgba(200,168,121,.22),
-                0 0 25px rgba(200,168,121,.10);
+                0 22px 50px rgba(0, 0, 0, .15),
+                0 5px 18px rgba(200, 168, 121, .22),
+                0 0 25px rgba(200, 168, 121, .10);
         }
 
         .product-card:hover::before {
@@ -857,10 +870,10 @@
             z-index: 10000;
             transform: scale(1.08) !important;
             opacity: 0;
-            box-shadow: 0 25px 70px rgba(0,0,0,.35);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, .35);
             pointer-events: none;
             transition:
-                transform .42s cubic-bezier(.2,.8,.2,1),
+                transform .42s cubic-bezier(.2, .8, .2, 1),
                 opacity .42s ease,
                 box-shadow .42s ease;
         }
@@ -873,7 +886,7 @@
         .page-transition-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(25,25,23,.35);
+            background: rgba(25, 25, 23, .35);
             opacity: 0;
             visibility: hidden;
             z-index: 9998;
@@ -904,7 +917,7 @@
             height: 100%;
             object-fit: cover;
             background: #f0efec;
-            transition: transform .8s cubic-bezier(.2,.8,.2,1);
+            transition: transform .8s cubic-bezier(.2, .8, .2, 1);
             will-change: transform;
         }
 
@@ -978,14 +991,25 @@
         }
 
         .wishlist-heart-btn.heart-animation {
-            animation: heartPop .4s cubic-bezier(.2,.8,.2,1);
+            animation: heartPop .4s cubic-bezier(.2, .8, .2, 1);
         }
 
         @keyframes heartPop {
-            0% { transform: scale(1); }
-            40% { transform: scale(1.4); }
-            70% { transform: scale(.9); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            40% {
+                transform: scale(1.4);
+            }
+
+            70% {
+                transform: scale(.9);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
         /* =========================================
@@ -1011,8 +1035,8 @@
             border: 1px solid #c8a879;
             border-radius: 7px;
             background: #c8a879;
-            box-shadow: 0 3px 12px rgba(0,0,0,.2);
-            animation: quantityAppear .35s cubic-bezier(.2,.8,.2,1);
+            box-shadow: 0 3px 12px rgba(0, 0, 0, .2);
+            animation: quantityAppear .35s cubic-bezier(.2, .8, .2, 1);
         }
 
         @keyframes quantityAppear {
@@ -1170,18 +1194,21 @@
             left: -100%;
             width: 45%;
             height: 1px;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                #c8a879,
-                transparent
-            );
+            background: linear-gradient(90deg,
+                    transparent,
+                    #c8a879,
+                    transparent);
             animation: footerShine 5s ease-in-out infinite;
         }
 
         @keyframes footerShine {
-            from { left: -100%; }
-            to { left: 150%; }
+            from {
+                left: -100%;
+            }
+
+            to {
+                left: 150%;
+            }
         }
 
         /* =========================================
@@ -1356,7 +1383,9 @@
            TOUCH DEVICES
         ========================================= */
 
-        @media (hover: none), (pointer: coarse) {
+        @media (hover: none),
+        (pointer: coarse) {
+
             .product-card::before,
             .product-card::after {
                 display: none;
@@ -1376,6 +1405,7 @@
         ========================================= */
 
         @media (prefers-reduced-motion: reduce) {
+
             *,
             *::before,
             *::after {
@@ -1405,9 +1435,7 @@
         <div class="intro-content">
 
             <div class="intro-logo-container">
-                <img src="{% static 'images/logo1.png' %}"
-                     alt="Website Logo"
-                     class="intro-logo">
+                <img src="{% static 'images/logo1.png' %}" alt="Website Logo" class="intro-logo">
             </div>
 
             <div class="intro-welcome-text">
@@ -1440,9 +1468,7 @@
             <a class="brand-group" href="{% url 'user_dashboard' %}">
 
                 <div class="logo-container">
-                    <img src="{% static 'images/logo1.png' %}"
-                         alt="Website Logo"
-                         class="owner-logo">
+                    <img src="{% static 'images/logo1.png' %}" alt="Website Logo" class="owner-logo">
                 </div>
 
                 <div class="navbar-brand">
@@ -1452,13 +1478,8 @@
             </a>
 
 
-            <button class="navbar-toggler bg-light"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarMenu"
-                    aria-controls="navbarMenu"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation">
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMenu"
+                aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
 
                 <span class="navbar-toggler-icon"></span>
 
@@ -1505,6 +1526,14 @@
                         </a>
                     </li>
 
+
+                    <!-- MY ORDERS BUTTON -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'user_orders' %}">
+                            My Orders
+                        </a>
+                    </li>
+
                     <li class="nav-item mt-3 mt-lg-0 ms-lg-3">
                         <a href="{% url 'user_logout' %}" class="logout-btn">
                             Logout
@@ -1513,22 +1542,18 @@
 
                     <li class="nav-item">
 
-                        <a href="{% url 'user_profile' %}"
-                           class="profile-link"
-                           title="My Profile"
-                           aria-label="Open My Profile">
+                        <a href="{% url 'user_profile' %}" class="profile-link" title="My Profile"
+                            aria-label="Open My Profile">
 
                             {% if user_data.profile_image %}
 
-                                <img src="{{ user_data.profile_image.url }}"
-                                     alt="User Profile"
-                                     class="profile-image">
+                            <img src="{{ user_data.profile_image.url }}" alt="User Profile" class="profile-image">
 
                             {% else %}
 
-                                <div class="profile-placeholder">
-                                    {{ user_data.name|default:"U"|first|upper }}
-                                </div>
+                            <div class="profile-placeholder">
+                                {{ user_data.name|default:"U"|first|upper }}
+                            </div>
 
                             {% endif %}
 
@@ -1586,7 +1611,7 @@
             <div class="mt-3">
 
                 <a href="{% url 'user_dashboard' %}{% if search_query %}?search={{ search_query|urlencode }}{% endif %}"
-                   class="category-btn {% if not selected_category %}active{% endif %}">
+                    class="category-btn {% if not selected_category %}active{% endif %}">
 
                     All Products
 
@@ -1594,12 +1619,12 @@
 
                 {% for cat in categories %}
 
-                    <a href="?category={{ cat.id }}{% if search_query %}&search={{ search_query|urlencode }}{% endif %}"
-                       class="category-btn {% if selected_category == cat.id|stringformat:'s' %}active{% endif %}">
+                <a href="?category={{ cat.id }}{% if search_query %}&search={{ search_query|urlencode }}{% endif %}"
+                    class="category-btn {% if selected_category == cat.id|stringformat:'s' %}active{% endif %}">
 
-                        {{ cat.category_name }}
+                    {{ cat.category_name }}
 
-                    </a>
+                </a>
 
                 {% endfor %}
 
@@ -1629,23 +1654,16 @@
 
                 <div class="col-md-6">
 
-                    <form method="GET"
-                          action="{% url 'user_dashboard' %}"
-                          class="d-flex gap-2">
+                    <form method="GET" action="{% url 'user_dashboard' %}" class="d-flex gap-2">
 
                         {% if selected_category %}
 
-                            <input type="hidden"
-                                   name="category"
-                                   value="{{ selected_category }}">
+                        <input type="hidden" name="category" value="{{ selected_category }}">
 
                         {% endif %}
 
-                        <input type="search"
-                               name="search"
-                               class="form-control search-box"
-                               placeholder="Search by name, category or colour..."
-                               value="{{ search_query|default:'' }}">
+                        <input type="search" name="search" class="form-control search-box"
+                            placeholder="Search by name, category or colour..." value="{{ search_query|default:'' }}">
 
                         <button type="submit" class="btn search-btn">
                             Search
@@ -1653,12 +1671,12 @@
 
                         {% if search_query %}
 
-                            <a href="{% url 'user_dashboard' %}{% if selected_category %}?category={{ selected_category }}{% endif %}"
-                               class="btn btn-outline-secondary clear-btn">
+                        <a href="{% url 'user_dashboard' %}{% if selected_category %}?category={{ selected_category }}{% endif %}"
+                            class="btn btn-outline-secondary clear-btn">
 
-                                Clear
+                            Clear
 
-                            </a>
+                        </a>
 
                         {% endif %}
 
@@ -1671,10 +1689,10 @@
 
             {% if search_query %}
 
-                <p class="text-muted mb-4">
-                    Search results for:
-                    <strong>{{ search_query }}</strong>
-                </p>
+            <p class="text-muted mb-4">
+                Search results for:
+                <strong>{{ search_query }}</strong>
+            </p>
 
             {% endif %}
 
@@ -1685,112 +1703,103 @@
 
                 {% for item in products %}
 
-                    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 product-column">
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 product-column">
 
-                        <div class="card product-card shadow-sm product-clickable"
-                             data-url="{% url 'product_details' item.id %}">
+                    <div class="card product-card shadow-sm product-clickable"
+                        data-url="{% url 'product_details' item.id %}">
 
-                            <!-- PRODUCT IMAGE -->
+                        <!-- PRODUCT IMAGE -->
 
-                            <div class="product-image-wrapper">
+                        <div class="product-image-wrapper">
 
-                                {% if item.front_image %}
+                            {% if item.front_image %}
 
-                                    <img src="/media/{{ item.front_image }}"
-                                         class="product-image"
-                                         alt="{{ item.product_name }}">
+                            <img src="/media/{{ item.front_image }}" class="product-image"
+                                alt="{{ item.product_name }}">
 
-                                {% else %}
+                            {% else %}
 
-                                    <div class="no-image">
-                                        No Image Available
-                                    </div>
-
-                                {% endif %}
-
-
-                                <!-- WISHLIST HEART BUTTON -->
-
-                                <button type="button"
-                                        class="wishlist-heart-btn {% if item.id in wishlist_product_ids %}active{% endif %}"
-                                        data-url="{% url 'wishlist_toggle' item.id %}"
-                                        data-product-id="{{ item.id }}"
-                                        aria-label="{% if item.id in wishlist_product_ids %}Remove from wishlist{% else %}Add to wishlist{% endif %}"
-                                        aria-pressed="{% if item.id in wishlist_product_ids %}true{% else %}false{% endif %}"
-                                        title="{% if item.id in wishlist_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}">
-
-                                    {% if item.id in wishlist_product_ids %}
-                                        ♥
-                                    {% else %}
-                                        ♡
-                                    {% endif %}
-
-                                </button>
-
-
-                                <!-- QUANTITY CONTROL -->
-
-                                {% if item.cart_quantity > 0 %}
-
-                                    <form method="POST"
-                                          action="{% url 'update_cart_quantity' item.id %}"
-                                          class="cart-form image-cart-form"
-                                          data-update-url="{% url 'update_cart_quantity' item.id %}">
-
-                                        {% csrf_token %}
-
-                                        <div class="quantity-control">
-
-                                            <button type="button"
-                                                    class="quantity-btn minus-btn"
-                                                    aria-label="Decrease quantity">
-                                                −
-                                            </button>
-
-                                            <span class="quantity-value">
-                                                {{ item.cart_quantity }}
-                                            </span>
-
-                                            <button type="button"
-                                                    class="quantity-btn plus-btn"
-                                                    aria-label="Increase quantity">
-                                                +
-                                            </button>
-
-                                        </div>
-
-                                        <div class="cart-message" aria-live="polite"></div>
-
-                                    </form>
-
-                                {% endif %}
-
+                            <div class="no-image">
+                                No Image Available
                             </div>
 
+                            {% endif %}
 
-                            <!-- PRODUCT INFORMATION -->
 
-                            <div class="product-info">
+                            <!-- WISHLIST HEART BUTTON -->
 
-                                <p class="product-category">
-                                    {{ item.category.category_name }}
-                                </p>
+                            <button type="button"
+                                class="wishlist-heart-btn {% if item.id in wishlist_product_ids %}active{% endif %}"
+                                data-url="{% url 'wishlist_toggle' item.id %}" data-product-id="{{ item.id }}"
+                                aria-label="{% if item.id in wishlist_product_ids %}Remove from wishlist{% else %}Add to wishlist{% endif %}"
+                                aria-pressed="{% if item.id in wishlist_product_ids %}true{% else %}false{% endif %}"
+                                title="{% if item.id in wishlist_product_ids %}Remove from Wishlist{% else %}Add to Wishlist{% endif %}">
 
-                                <div>
+                                {% if item.id in wishlist_product_ids %}
+                                ♥
+                                {% else %}
+                                ♡
+                                {% endif %}
 
-                                    <span class="selling-price">
-                                        ₹{{ item.selling_price|floatformat:2 }}
+                            </button>
+
+
+                            <!-- QUANTITY CONTROL -->
+
+                            {% if item.cart_quantity > 0 %}
+
+                            <form method="POST" action="{% url 'update_cart_quantity' item.id %}"
+                                class="cart-form image-cart-form"
+                                data-update-url="{% url 'update_cart_quantity' item.id %}">
+
+                                {% csrf_token %}
+
+                                <div class="quantity-control">
+
+                                    <button type="button" class="quantity-btn minus-btn" aria-label="Decrease quantity">
+                                        −
+                                    </button>
+
+                                    <span class="quantity-value">
+                                        {{ item.cart_quantity }}
                                     </span>
 
-                                    {% if item.discount_rate > 0 %}
-
-                                        <span class="mrp-price">
-                                            ₹{{ item.mrp|floatformat:2 }}
-                                        </span>
-
-                                    {% endif %}
+                                    <button type="button" class="quantity-btn plus-btn" aria-label="Increase quantity">
+                                        +
+                                    </button>
 
                                 </div>
+
+                                <div class="cart-message" aria-live="polite"></div>
+
+                            </form>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- PRODUCT INFORMATION -->
+
+                        <div class="product-info">
+
+                            <p class="product-category">
+                                {{ item.category.category_name }}
+                            </p>
+
+                            <div>
+
+                                <span class="selling-price">
+                                    ₹{{ item.selling_price|floatformat:2 }}
+                                </span>
+
+                                {% if item.discount_rate > 0 %}
+
+                                <span class="mrp-price">
+                                    ₹{{ item.mrp|floatformat:2 }}
+                                </span>
+
+                                {% endif %}
 
                             </div>
 
@@ -1798,21 +1807,23 @@
 
                     </div>
 
+                </div>
+
                 {% empty %}
 
-                    <div class="col-12 text-center py-5 empty-products">
+                <div class="col-12 text-center py-5 empty-products">
 
-                        <h4>No Products Found</h4>
+                    <h4>No Products Found</h4>
 
-                        <p class="text-muted">
-                            We couldn't find any products matching your search.
-                        </p>
+                    <p class="text-muted">
+                        We couldn't find any products matching your search.
+                    </p>
 
-                        <a href="{% url 'user_dashboard' %}" class="btn search-btn">
-                            View All Products
-                        </a>
+                    <a href="{% url 'user_dashboard' %}" class="btn search-btn">
+                        View All Products
+                    </a>
 
-                    </div>
+                </div>
 
                 {% endfor %}
 
@@ -2346,4 +2357,5 @@
     </script>
 
 </body>
+
 </html>
